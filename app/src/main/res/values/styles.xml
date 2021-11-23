@@ -27,6 +27,7 @@
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:inputType">textPersonName</item>
         <item name="android:minHeight">48dp</item>
+        <item name="android:hint">Username...</item>
     </style>
 
     <style name="BasicPasswordEditTextStyle">
@@ -38,6 +39,7 @@
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:inputType">textPassword</item>
         <item name="android:minHeight">48dp</item>
+        <item name="android:hint">Password...</item>
     </style>
 
     <style name="BasicSwitchStyle">
@@ -46,5 +48,11 @@
         <item name="android:buttonTint">@color/Green_Blue</item>
         <item name="android:foregroundTint">@color/Gold_Crayola</item>
         <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="BasicTextViewStyle">
+        <item name="android:fontFamily">@font/roboto_slab</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
     </style>
 </resources>

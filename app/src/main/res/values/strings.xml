@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Sudo Solve</string>
+    <string name="welcome_to_sudosolve">Welcome to SudoSolve!</string>
 </resources>
