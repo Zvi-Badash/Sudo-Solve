@@ -7,4 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--
+        This are my colors, defined by a color scheme designed by colors.co
+    -->
+
+    <color name="Green_Blue">#306BAC</color>
+    <color name="Cornflower_Blue">#6F9CEB</color>
+    <color name="Baby_Blue_Eyes">#98B9F2</color>
+    <color name="Gold_Crayola">#F9C784</color>
 </resources>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "779740589812",
+    "project_id": "sudo-solve",
+    "storage_bucket": "sudo-solve.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779740589812:android:f52037c31c722c4c4c78a1",
+        "android_client_info": {
+          "package_name": "com.zvibadash.sudosolve"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779740589812-9p3opo2jg6d2ks3g2hdfjk1eg2cb6pbo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzv3TU3S27sOrQxuwVzk0AmNg5qBR4ZQE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779740589812-9p3opo2jg6d2ks3g2hdfjk1eg2cb6pbo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

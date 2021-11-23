@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BasicButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/Green_Blue</item>
+        <item name="android:fontFamily">@font/roboto_condensed_bold</item>
+        <item name="android:includeFontPadding">true</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="BasicHeadingStyle">
+        <item name="android:fontFamily">@font/roboto_condensed_regular</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">14pt</item>
+    </style>
+
+    <style name="BasicUsernameEditTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:autofillHints">username</item>
+        <item name="android:backgroundTint">@color/Gold_Crayola</item>
+        <item name="android:ems">10</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:inputType">textPersonName</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="BasicPasswordEditTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:autofillHints">password</item>
+        <item name="android:backgroundTint">@color/Gold_Crayola</item>
+        <item name="android:ems">10</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:inputType">textPassword</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="BasicSwitchStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:buttonTint">@color/Green_Blue</item>
+        <item name="android:foregroundTint">@color/Gold_Crayola</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+</resources>
