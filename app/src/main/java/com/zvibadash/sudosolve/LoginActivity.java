@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     final int NO_ERROR = 0;
 
     SSDBHelper dbHelper;
-    SQLiteDatabase db;
+    SQLiteDatabase db;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
