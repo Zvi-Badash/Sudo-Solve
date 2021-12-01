@@ -1,0 +1,23 @@
+@startuml
+
+title __SUDOSOLVE's Class Diagram__\n
+
+  namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.LoginActivity {
+        # onCreate()
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.WelcomeActivity {
+        ~ cdt : CountDownTimer
+        # onCreate()
+    }
+  }
+  
+
+  com.zvibadash.sudosolve.LoginActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.zvibadash.sudosolve.WelcomeActivity -up-|> androidx.appcompat.app.AppCompatActivity
+
+@enduml
