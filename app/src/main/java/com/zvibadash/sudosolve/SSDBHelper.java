@@ -8,7 +8,7 @@ import com.zvibadash.sudosolve.SSDBContract.*;
 public class SSDBHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "FeedReader.db";
+    public static final String DATABASE_NAME = "SudoSolve.db";
 
     /*
      * This amounts to:

@@ -3,8 +3,8 @@
     <string name="welcome_to_sudosolve">Welcome to SudoSolve!</string>
     <string name="login_message">
         Please note, your account will only be used as a way to save your progress and unsaved games.
-        &lt;br /&gt; &lt;br /&gt;
-        you do not need a password, and if you choose to make a new account, you can always do so.
+        <br /> <br />
+        <b>you do not need a password</b>, and if you choose to make a new account, you can always do so.
     </string>
     <string name="title_activity_register">RegisterActivity</string>
     <!-- Strings used for fragments for navigation -->
