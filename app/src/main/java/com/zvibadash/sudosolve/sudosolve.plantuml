@@ -1,10 +1,75 @@
 @startuml
 
-title __SUDOSOLVE's Class Diagram__\n
-
   namespace com.zvibadash.sudosolve {
     class com.zvibadash.sudosolve.LoginActivity {
+        ~ NO_ERROR : int
+        {static} ~ TAG : String
+        ~ USERNAME_ERROR : int
+        ~ db : SQLiteDatabase
         # onCreate()
+        - isValidUsername()
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.RegisterActivity {
+        ~ ALPHANUMERIC_ERROR : int
+        ~ ALREADY_EXISTS_ERROR : int
+        ~ LENGTH_ERROR : int
+        ~ NO_ERROR : int
+        {static} ~ TAG : String
+        ~ db : SQLiteDatabase
+        # onCreate()
+        - isValidUsername()
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.SSDBContract {
+        - SSDBContract()
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.SSDBContract.LastSessionForUser {
+        {static} + SESSION_CONTENTS : String
+        {static} + TABLE_NAME : String
+        {static} + USERNAME : String
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.SSDBContract.Statistics {
+        {static} + STATISTICS_CONTENTS : String
+        {static} + TABLE_NAME : String
+        {static} + USERNAME : String
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.SSDBContract.User {
+        {static} + TABLE_NAME : String
+        {static} + USERNAME : String
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.SSDBHelper {
+        {static} + DATABASE_NAME : String
+        {static} + DATABASE_VERSION : int
+        {static} - SQL_CREATE_LAST_SESS : String
+        {static} - SQL_CREATE_STATISTICS : String
+        {static} - SQL_CREATE_USER : String
+        + SSDBHelper()
+        + onCreate()
+        + onDowngrade()
+        + onUpgrade()
     }
   }
   
@@ -18,6 +83,15 @@ title __SUDOSOLVE's Class Diagram__\n
   
 
   com.zvibadash.sudosolve.LoginActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.zvibadash.sudosolve.LoginActivity o-- com.zvibadash.sudosolve.SSDBHelper : dbHelper
+  com.zvibadash.sudosolve.RegisterActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.zvibadash.sudosolve.RegisterActivity o-- com.zvibadash.sudosolve.SSDBHelper : dbHelper
+  com.zvibadash.sudosolve.SSDBContract +-down- com.zvibadash.sudosolve.SSDBContract.LastSessionForUser
+  com.zvibadash.sudosolve.SSDBContract +-down- com.zvibadash.sudosolve.SSDBContract.Statistics
+  com.zvibadash.sudosolve.SSDBContract +-down- com.zvibadash.sudosolve.SSDBContract.User
+  com.zvibadash.sudosolve.SSDBContract.LastSessionForUser .up.|> android.provider.BaseColumns
+  com.zvibadash.sudosolve.SSDBContract.Statistics .up.|> android.provider.BaseColumns
+  com.zvibadash.sudosolve.SSDBContract.User .up.|> android.provider.BaseColumns
+  com.zvibadash.sudosolve.SSDBHelper -up-|> android.database.sqlite.SQLiteOpenHelper
   com.zvibadash.sudosolve.WelcomeActivity -up-|> androidx.appcompat.app.AppCompatActivity
-
 @enduml

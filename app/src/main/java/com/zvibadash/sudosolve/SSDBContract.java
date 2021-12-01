@@ -17,15 +17,6 @@ public final class SSDBContract {
         public static final String USERNAME = "username";
     }
 
-    public static class Session implements BaseColumns {
-        // That is the table's name.
-        public static final String TABLE_NAME = "session";
-
-        // Here, the schema is actually detailed.
-        public static final String SESSION_ID = "sess_id";
-        public static final String SESSION_CONTENTS = "sess_cont";
-    }
-
     public static class Statistics implements BaseColumns {
         // That is the table's name.
         public static final String TABLE_NAME = "stat";
@@ -41,6 +32,6 @@ public final class SSDBContract {
 
         // Here, the schema is actually detailed.
         public static final String USERNAME = User.USERNAME;
-        public static final String SESSION_ID = Session.SESSION_ID;
+        public static final String SESSION_CONTENTS = "sess_cont";
     }
 }

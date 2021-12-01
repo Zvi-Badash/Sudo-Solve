@@ -15,12 +15,34 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   
 
   namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.RegisterActivity {
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.SSDBContract {
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.SSDBHelper {
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
     class com.zvibadash.sudosolve.WelcomeActivity {
     }
   }
   
 
   com.zvibadash.sudosolve.LoginActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.zvibadash.sudosolve.LoginActivity o-- com.zvibadash.sudosolve.SSDBHelper : dbHelper
+  com.zvibadash.sudosolve.RegisterActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.zvibadash.sudosolve.RegisterActivity o-- com.zvibadash.sudosolve.SSDBHelper : dbHelper
+  com.zvibadash.sudosolve.SSDBHelper -up-|> android.database.sqlite.SQLiteOpenHelper
   com.zvibadash.sudosolve.WelcomeActivity -up-|> androidx.appcompat.app.AppCompatActivity
 
 
