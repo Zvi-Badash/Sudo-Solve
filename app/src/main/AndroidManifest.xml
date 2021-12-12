@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SudoSolve">
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HelpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MenuTemplateActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity

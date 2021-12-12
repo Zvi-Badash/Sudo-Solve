@@ -54,7 +54,8 @@ public class RegisterActivity extends AppCompatActivity {
                     long newRowId = db.insert(SSDBContract.User.TABLE_NAME, null, values);
                     Log.i(TAG, "new row inserted into " + SSDBContract.User.TABLE_NAME + ", with key " + newRowId);
 
-                    Toast.makeText(getApplicationContext(), "DEBUG TOAST: MOVE TO NEXT ACTIVITY", Toast.LENGTH_SHORT).show();
+                    // TODO: make sure the login data moves to the home activity
+                    startActivity(new Intent(this, HomeActivity.class));
                     break;
             }
         });
