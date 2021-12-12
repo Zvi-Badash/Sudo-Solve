@@ -1,5 +1,21 @@
 @startuml
 
+title __SUDOSOLVE's Class Diagram__\n
+
+  namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.HelpActivity {
+        # onCreate()
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.HomeActivity {
+        # onCreate()
+    }
+  }
+  
+
   namespace com.zvibadash.sudosolve {
     class com.zvibadash.sudosolve.LoginActivity {
         ~ NO_ERROR : int
@@ -8,6 +24,14 @@
         ~ db : SQLiteDatabase
         # onCreate()
         - isValidUsername()
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.MenuTemplateActivity {
+        + onCreateOptionsMenu()
+        + onOptionsItemSelected()
     }
   }
   
@@ -75,6 +99,13 @@
   
 
   namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.SettingsActivity {
+        # onCreate()
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
     class com.zvibadash.sudosolve.WelcomeActivity {
         ~ cdt : CountDownTimer
         # onCreate()
@@ -82,8 +113,11 @@
   }
   
 
+  com.zvibadash.sudosolve.HelpActivity -up-|> com.zvibadash.sudosolve.MenuTemplateActivity
+  com.zvibadash.sudosolve.HomeActivity -up-|> com.zvibadash.sudosolve.MenuTemplateActivity
   com.zvibadash.sudosolve.LoginActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.zvibadash.sudosolve.LoginActivity o-- com.zvibadash.sudosolve.SSDBHelper : dbHelper
+  com.zvibadash.sudosolve.MenuTemplateActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.zvibadash.sudosolve.RegisterActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.zvibadash.sudosolve.RegisterActivity o-- com.zvibadash.sudosolve.SSDBHelper : dbHelper
   com.zvibadash.sudosolve.SSDBContract +-down- com.zvibadash.sudosolve.SSDBContract.LastSessionForUser
@@ -93,5 +127,6 @@
   com.zvibadash.sudosolve.SSDBContract.Statistics .up.|> android.provider.BaseColumns
   com.zvibadash.sudosolve.SSDBContract.User .up.|> android.provider.BaseColumns
   com.zvibadash.sudosolve.SSDBHelper -up-|> android.database.sqlite.SQLiteOpenHelper
+  com.zvibadash.sudosolve.SettingsActivity -up-|> com.zvibadash.sudosolve.MenuTemplateActivity
   com.zvibadash.sudosolve.WelcomeActivity -up-|> androidx.appcompat.app.AppCompatActivity
 @enduml

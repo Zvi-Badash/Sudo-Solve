@@ -2,18 +2,25 @@ package com.zvibadash.sudosolve;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class MenuTemplateActivity extends AppCompatActivity {
+    // Found this gem is stackoverflow when trying to display icons
+    // inside the action bar menu.
+
+    @SuppressLint("RestrictedApi")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
+        if (menu instanceof MenuBuilder) {
+            MenuBuilder mb = (MenuBuilder) menu;
+            mb.setOptionalIconsVisible(true);
+        }
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
