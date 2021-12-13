@@ -2,9 +2,36 @@
     <string name="app_name">Sudo Solve</string>
     <string name="welcome_to_sudosolve">Welcome to SudoSolve!</string>
     <string name="login_message">
-        "Please note, your account will only be used as a way to save your progress and unsaved games.
+        "Please note, your account will only be used as a way to save your progress and unsaved games.  \n\n
 
         <b>you do not need a password</b>, and if you choose to make a brand new account, you can always do so."
+    </string>
+
+    <!-- Strings used for the help page -->
+    <string name="helpStringA">
+        "Hi! This is the help page for <i>sudo solve</i>, Zvi Badash\'s final project for the Android app design class of 2021.  \n\n
+
+        This application is a tool for all avid Sudoku enjoyers out there, and beginner Sudoku players that need a guiding hand in Sudoku solving.  \n\n
+
+        The main capabilities of the app are <b>Guided Solving Mode</b> (solving puzzles in a forgiving environment, with many helping hands) 
+        and <b>Solution Mode</b>, where you can view the answer for the given puzzle."
+    </string>
+
+    <string name="helpStringB">
+        "The Sudoku puzzles can be given as input in two ways: <b>Image input</b> (highly recommended!) and <b>Manual input</b>. \n\n
+
+        For the image mode, just place the image in the frame of the prompted camera, and make sure to be steady when shooting! \n\n
+
+        Also, for optimal performance and accuracy, please try to film the Sudoku directly from above, with no side-to-side transformations. "
+    </string>
+
+    <string name="helpStringC">
+        "Your <i>sudo solve</i> will be used for two main reasons: \n\n
+
+            (1) With your account, you\'ll never have to leave a Sudoku unfinished and restart all over again,
+                You can always log out and the current puzzle you are solving will be saved in the system! \n\n
+
+            (2) Another benefit of the account, is that you\'ll be able to keep track of you\'re statistics, and show them off to your friends ;) "
     </string>
 
     <!-- Strings used for fragments for navigation -->
@@ -14,4 +41,5 @@
     <string name="previous">Previous</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="long_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis turpis ex. Curabitur ornare eget nibh id placerat. Vestibulum tincidunt nulla libero, ut volutpat ante placerat vel. Phasellus nunc justo, maximus quis felis ac, pretium tincidunt orci. Nullam eget pretium tellus. Aenean non bibendum ex. Sed pretium neque sit amet iaculis eleifend. Sed elementum hendrerit ligula, in porttitor erat pretium non. Curabitur ullamcorper enim eu feugiat placerat. Praesent vitae massa iaculis, gravida mi eu, cursus sapien. Maecenas pretium viverra tortor, eget condimentum erat cursus ac. Suspendisse eget libero tempor, pharetra elit eu, egestas odio. Nam ultrices enim sapien, sit amet euismod ante semper sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta tortor et massa auctor venenatis. Quisque feugiat urna laoreet finibus posuere. Maecenas mattis ligula urna, sed tincidunt nulla vestibulum id. Donec in arcu quis magna tincidunt pretium. Proin at enim ullamcorper, vulputate nulla vel, tristique nisl. Vestibulum eget volutpat dui. Quisque tincidunt condimentum libero, in euismod nunc vehicula sit amet. In blandit lobortis augue, non lobortis eros. Curabitur eu pellentesque tellus. Nulla neque quam, sagittis eu posuere sit amet, convallis sit amet tortor. Aenean fermentum vel nibh sit amet feugiat. Morbi elit urna, eleifend sed quam ut, semper ornare urna. Proin nibh dui, convallis in mauris eget, euismod tincidunt justo. Morbi sed massa eu dolor faucibus malesuada in ut odio. Sed ac placerat elit. Phasellus aliquet, ex id malesuada rhoncus, elit massa euismod quam, vitae suscipit magna sem ut lectus. In tincidunt finibus augue, nec facilisis mauris imperdiet sit amet. Cras pretium eros tellus. Quisque in cursus velit. Cras sodales mi maximus, dictum elit a, congue odio. Maecenas ac mauris ligula. In hac habitasse platea dictumst. Maecenas dapibus lorem at cursus semper. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis massa risus, volutpat vitae imperdiet in, tincidunt vitae tortor. Nulla facilisi. Nulla eros dui, accumsan ultricies ornare nec, malesuada viverra tellus. Etiam sodales urna ligula, sit amet venenatis metus auctor et. Donec vitae pulvinar elit, at mollis lacus. Duis sed elementum ipsum, et aliquam orci. Mauris congue, magna sit amet ullamcorper dignissim, mauris elit elementum risus, eget porttitor orci tortor eget nibh. Cras neque urna, congue ut eros vel, molestie faucibus risus. Praesent sed tincidunt dui, sit amet ornare odio. Morbi at dui eget erat finibus laoreet.</string>
 </resources>

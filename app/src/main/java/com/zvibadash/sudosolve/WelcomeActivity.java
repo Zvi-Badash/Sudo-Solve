@@ -16,7 +16,7 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         Toast toast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
-        cdt = new CountDownTimer(3_000, 1_000) {
+        cdt = new CountDownTimer(1_000, 1_000) {
             @Override
             public void onTick(long l) {
                 toast.cancel();
