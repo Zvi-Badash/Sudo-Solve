@@ -23,11 +23,13 @@
 
     <TextView
         android:id="@+id/textView7"
-        android:layout_width="399dp"
-        android:layout_height="90dp"
+        style="@style/BasicTextViewStyle"
+        android:layout_width="395dp"
+        android:layout_height="100dp"
         android:layout_marginTop="76dp"
         android:layout_marginBottom="120dp"
         android:text="@string/login_message"
+        android:textAlignment="viewStart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

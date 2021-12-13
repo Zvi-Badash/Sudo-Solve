@@ -2,11 +2,10 @@
     <string name="app_name">Sudo Solve</string>
     <string name="welcome_to_sudosolve">Welcome to SudoSolve!</string>
     <string name="login_message">
-        Please note, your account will only be used as a way to save your progress and unsaved games.
-        <br /> <br />
-        <b>you do not need a password</b>, and if you choose to make a brand new account, you can always do so.
+        "Please note, your account will only be used as a way to save your progress and unsaved games.
+
+        <b>you do not need a password</b>, and if you choose to make a brand new account, you can always do so."
     </string>
-    <string name="title_activity_register">RegisterActivity</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

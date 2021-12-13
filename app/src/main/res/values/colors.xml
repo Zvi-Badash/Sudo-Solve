@@ -11,7 +11,7 @@
     <!--
         This are my colors, defined by a color scheme designed by colors.co
     -->
-
+    <color name="textGray">#A0000000</color>
     <color name="Green_Blue">#306BAC</color>
     <color name="Cornflower_Blue">#6F9CEB</color>
     <color name="White_Baby_Blue_Eyes">#E9F1FF</color>

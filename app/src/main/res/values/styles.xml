@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="BasicButtonStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -16,6 +15,7 @@
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">14pt</item>
+        <item name="android:textColor">@color/textGray</item>
     </style>
 
     <style name="BasicUsernameEditTextStyle">
@@ -28,18 +28,8 @@
         <item name="android:inputType">textPersonName</item>
         <item name="android:minHeight">48dp</item>
         <item name="android:hint">Username...</item>
-    </style>
-
-    <style name="BasicPasswordEditTextStyle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:autofillHints">password</item>
-        <item name="android:backgroundTint">@color/Gold_Crayola</item>
-        <item name="android:ems">10</item>
-        <item name="android:fontFamily">@font/roboto</item>
-        <item name="android:inputType">textPassword</item>
-        <item name="android:minHeight">48dp</item>
-        <item name="android:hint">Password...</item>
+        <item name="android:textColorHint">@color/textGray</item>
+        <item name="android:textColor">@color/textGray</item>
     </style>
 
     <style name="BasicSwitchStyle">
@@ -54,5 +44,6 @@
         <item name="android:fontFamily">@font/roboto_slab</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/textGray</item>
     </style>
 </resources>
