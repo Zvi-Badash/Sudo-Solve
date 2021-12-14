@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White_Baby_Blue_Eyes"
     tools:context=".HelpActivity">
 
     <ScrollView
@@ -49,10 +50,13 @@
 
                     <TextView
                         android:id="@+id/textView12"
+                        style="@style/BasicTextViewStyle"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/proxima_nova"
                         android:padding="10dp"
-                        android:text="@string/helpStringA" />
+                        android:text="@string/helpStringA"
+                        android:textAlignment="viewStart" />
 
                     <ImageView
                         android:id="@+id/imageView11"
@@ -79,10 +83,13 @@
 
                     <TextView
                         android:id="@+id/textView13"
+                        style="@style/BasicTextViewStyle"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/proxima_nova"
                         android:padding="10dp"
-                        android:text="@string/helpStringB" />
+                        android:text="@string/helpStringB"
+                        android:textAlignment="viewStart" />
 
                 </TableRow>
 
@@ -93,11 +100,14 @@
 
                     <TextView
                         android:id="@+id/textView14"
+                        style="@style/BasicTextViewStyle"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/proxima_nova"
                         android:maxWidth="200dp"
                         android:padding="10dp"
-                        android:text="@string/helpStringC" />
+                        android:text="@string/helpStringC"
+                        android:textAlignment="viewStart" />
 
                     <ImageView
                         android:id="@+id/imageView9"
