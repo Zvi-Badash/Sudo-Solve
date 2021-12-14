@@ -9,11 +9,11 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MenuTemplateActivity extends AppCompatActivity {
-    // Found this gem is stackoverflow when trying to display icons
+public class MainMenuTemplateActivity extends AppCompatActivity {
+    // Found this in StackOverflow when trying to display icons
     // inside the action bar menu.
 
-    @SuppressLint("RestrictedApi")
+    @SuppressLint("RestrictedApi") // Needed for this API
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (menu instanceof MenuBuilder) {

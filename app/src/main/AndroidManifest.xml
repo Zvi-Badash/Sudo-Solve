@@ -16,7 +16,7 @@
             android:name=".HelpActivity"
             android:exported="false" />
         <activity
-            android:name=".MenuTemplateActivity"
+            android:name=".MainMenuTemplateActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"

@@ -4,15 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White_Baby_Blue_Eyes"
     tools:context=".HomeActivity">
 
-    <TextView
-        android:id="@+id/textView10"
+    <ImageView
+        android:id="@+id/ivHomeGif"
+        android:layout_width="350dp"
+        android:layout_height="388dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/button"
+        style="@style/BasicButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="HOME ACTIVITY PLACEHOLDER"
+        android:layout_marginBottom="16dp"
+        android:drawableLeft="@drawable/ic_camera_bticon"
+        android:text="Image mode"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        style="@style/BasicButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="120dp"
+        android:drawableLeft="@drawable/ic_manual_bticon"
+        android:text="Manual mode"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/BasicHeadingStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose your input type:"
+        android:textSize="10pt"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.082"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ivHomeGif"
+        app:layout_constraintVertical_bias="0.688" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

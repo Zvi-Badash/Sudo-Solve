@@ -2,7 +2,7 @@ package com.zvibadash.sudosolve;
 
 import android.os.Bundle;
 
-public class SettingsActivity extends MenuTemplateActivity {
+public class SettingsActivity extends MainMenuTemplateActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
