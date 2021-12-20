@@ -19,21 +19,21 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btCameraMode"
         style="@style/BasicButtonStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="225dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:drawableLeft="@drawable/ic_camera_bticon"
         android:text="Image mode"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/btManualMode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btManualMode"
         style="@style/BasicButtonStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="225dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="120dp"
         android:drawableLeft="@drawable/ic_manual_bticon"
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:text="Choose your input type:"
         android:textSize="10pt"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/btCameraMode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.082"
         app:layout_constraintStart_toStartOf="parent"

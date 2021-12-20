@@ -1,6 +1,8 @@
 package com.zvibadash.sudosolve;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
@@ -15,5 +17,9 @@ public class HomeActivity extends MainMenuTemplateActivity {
 
         // This was taken from https://github.com/bumptech/glide, displays a gif in an imageView.
         Glide.with(this).load(R.drawable.home_sudoku).into(iv);
+
+        findViewById(R.id.btCameraMode).setOnClickListener(view -> {
+            startActivity(new Intent(this, CameraModeActivity.class));
+        });
     }
 }
