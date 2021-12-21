@@ -20,6 +20,7 @@ public class MainMenuTemplateActivity extends AppCompatActivity {
             MenuBuilder mb = (MenuBuilder) menu;
             mb.setOptionalIconsVisible(true);
         }
+
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }

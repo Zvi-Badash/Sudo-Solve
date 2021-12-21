@@ -1,6 +1,6 @@
 // TODO tomorrow:
 //      * make the code cleaner, more functional styled.
-//      * save the b64 file in the same ../ directory as the images, for better convention and
+//      * save the b64 file in the same ../... directory as the images, for better convention and
 //          easier access.
 
 package com.zvibadash.sudosolve;
@@ -25,24 +25,25 @@ import android.widget.ImageView;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class CameraModeActivity extends AppCompatActivity {
+public class CameraModeActivity extends MainMenuTemplateActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    static final String IMG_SUFFIX = ".jpg";
-    static final String TXT_SUFFIX = ".txt";
+    static final String IMG_SUFFIX         = ".jpg";
+    static final String TXT_SUFFIX         = ".txt";
 
-    static final String RAW_IMAGE_PREFIX = "SUDOSOLVE_RAW_";
+    static final String RAW_IMAGE_PREFIX   = "SUDOSOLVE_RAW_";
     static final String FINAL_IMAGE_PREFIX = "SUDOSOLVE_FINAL_";
-    static final String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss.SSS";
+    static final String DATE_PATTERN       = "yyyy-MM-dd HH:mm:ss.SSS";
 
-    // Trial & error, seems like a good value
-    static final int QUALITY = 30;
+    static final int QUALITY = 30; // Trial & error, seems like a good value
 
     String currentPhotoPath;
+    String currentEncodedName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,18 +63,23 @@ public class CameraModeActivity extends AppCompatActivity {
         ivTest.setImageBitmap(res);
 
         Log.d("CAMERA_ACTIVITY", currentPhotoPath);
+
         try {
             String timeStamp = new SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).format(new Date());
-            String textFileName = FINAL_IMAGE_PREFIX + timeStamp + "_";
+            currentEncodedName = FINAL_IMAGE_PREFIX + timeStamp + "_" + TXT_SUFFIX;
 
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getApplicationContext().openFileOutput(textFileName +
-                    "" + TXT_SUFFIX, Context.MODE_PRIVATE));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getApplicationContext()
+                    .openFileOutput(currentEncodedName, Context.MODE_PRIVATE));
+
             outputStreamWriter.write(getBase64ForImage(res));
             outputStreamWriter.close();
         }
         catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
+
+        File f = new File(Environment.DIRECTORY_PICTURES + "/encoded/" + currentEncodedName);
+        Log.d("CAMERA_ACTIVITY", f.getAbsolutePath());
 
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -107,10 +113,10 @@ public class CameraModeActivity extends AppCompatActivity {
         // Create an image file name
         String timeStamp = new SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).format(new Date());
         String imageFileName = RAW_IMAGE_PREFIX + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES + "/decoded/");
         File image = File.createTempFile(
-                imageFileName,     /* prefix    */
-                IMG_SUFFIX,        /* suffix    */
+                imageFileName,     /* prefix */
+                IMG_SUFFIX,        /* suffix */
                 storageDir         /* directory */
         );
 
