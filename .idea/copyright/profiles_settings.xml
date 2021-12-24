@@ -1,0 +1,18 @@
+<component name="CopyrightManager">
+  <settings default="MIT License">
+    <LanguageOptions name="JAVA">
+      <option name="separateBefore" value="true" />
+      <option name="separateAfter" value="true" />
+      <option name="lenBefore" value="100" />
+      <option name="lenAfter" value="100" />
+      <option name="box" value="true" />
+    </LanguageOptions>
+    <LanguageOptions name="XML">
+      <option name="separateBefore" value="true" />
+      <option name="separateAfter" value="true" />
+      <option name="lenBefore" value="100" />
+      <option name="lenAfter" value="100" />
+      <option name="box" value="true" />
+    </LanguageOptions>
+  </settings>
+</component>
