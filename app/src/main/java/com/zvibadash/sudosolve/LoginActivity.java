@@ -16,10 +16,10 @@ import com.zvibadash.sudosolve.SSDBContract.*;
 
 import java.util.regex.Pattern;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends LoginMenuTemplateActivity {
     static final String TAG = "LOGIN_ACTIVITY";
     final int USERNAME_ERROR = 3;
-    final int NO_ERROR = 0;
+    final int NO_ERROR       = 0;
 
     SSDBHelper dbHelper;
     SQLiteDatabase db;

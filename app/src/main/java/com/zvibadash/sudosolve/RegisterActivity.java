@@ -14,12 +14,12 @@ import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends LoginMenuTemplateActivity {
     static final String TAG = "REGISTER_ACTIVITY";
-    final int LENGTH_ERROR = 1;
-    final int ALPHANUMERIC_ERROR = 2;
+    final int LENGTH_ERROR         = 1;
+    final int ALPHANUMERIC_ERROR   = 2;
     final int ALREADY_EXISTS_ERROR = 3;
-    final int NO_ERROR = 0;
+    final int NO_ERROR             = 0;
 
     SSDBHelper dbHelper;
     SQLiteDatabase db;

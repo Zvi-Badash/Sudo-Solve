@@ -6,7 +6,6 @@
 package com.zvibadash.sudosolve;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.content.Context;
@@ -25,7 +24,6 @@ import android.widget.ImageView;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,9 +31,9 @@ import java.util.Locale;
 
 public class CameraModeActivity extends MainMenuTemplateActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
+
     static final String IMG_SUFFIX         = ".jpg";
     static final String TXT_SUFFIX         = ".txt";
-
     static final String RAW_IMAGE_PREFIX   = "SUDOSOLVE_RAW_";
     static final String FINAL_IMAGE_PREFIX = "SUDOSOLVE_FINAL_";
     static final String DATE_PATTERN       = "yyyy-MM-dd HH:mm:ss.SSS";
@@ -43,7 +41,6 @@ public class CameraModeActivity extends MainMenuTemplateActivity {
     static final int QUALITY = 30; // Trial & error, seems like a good value
 
     String currentPhotoPath;
-    String currentEncodedName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,29 +54,9 @@ public class CameraModeActivity extends MainMenuTemplateActivity {
     // image.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        Bitmap res = BitmapFactory.decodeFile(currentPhotoPath);
-
-        ImageView ivTest = findViewById(R.id.ivTest);
-        ivTest.setImageBitmap(res);
-
         Log.d("CAMERA_ACTIVITY", currentPhotoPath);
-
-        try {
-            String timeStamp = new SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).format(new Date());
-            currentEncodedName = FINAL_IMAGE_PREFIX + timeStamp + "_" + TXT_SUFFIX;
-
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getApplicationContext()
-                    .openFileOutput(currentEncodedName, Context.MODE_PRIVATE));
-
-            outputStreamWriter.write(getBase64ForImage(res));
-            outputStreamWriter.close();
-        }
-        catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-
-        File f = new File(Environment.DIRECTORY_PICTURES + "/encoded/" + currentEncodedName);
-        Log.d("CAMERA_ACTIVITY", f.getAbsolutePath());
+        Bitmap res = setImageFromPath(currentPhotoPath);
+        createTextB64File(res);
 
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -109,7 +86,7 @@ public class CameraModeActivity extends MainMenuTemplateActivity {
         }
     }
 
-    private File createImageFile() throws IOException {
+    private File createImageFile() throws IOException   {
         // Create an image file name
         String timeStamp = new SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).format(new Date());
         String imageFileName = RAW_IMAGE_PREFIX + timeStamp + "_";
@@ -125,7 +102,7 @@ public class CameraModeActivity extends MainMenuTemplateActivity {
         return image;
     }
 
-    private String getBase64ForImage(Bitmap original) {
+    private String getBase64FromImage(Bitmap original) {
         // First, rotate the image 90° to the right.
         Matrix rot = new Matrix();
         rot.postRotate(90);
@@ -144,5 +121,33 @@ public class CameraModeActivity extends MainMenuTemplateActivity {
 
         // Return the byte array encoded in base64.
         return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+    }
+
+    private Bitmap setImageFromPath(String path) {
+        Bitmap res = BitmapFactory.decodeFile(path);
+        ImageView ivTest = findViewById(R.id.ivTest);
+        ivTest.setImageBitmap(res);
+
+        return res;
+    }
+
+    private String createTextB64File(Bitmap bp) {
+        String currentEncodedName = "";
+        try {
+            String timeStamp = new SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).format(new Date());
+            currentEncodedName = FINAL_IMAGE_PREFIX + timeStamp + "_" + TXT_SUFFIX;
+
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getApplicationContext()
+                    .openFileOutput(currentEncodedName, Context.MODE_PRIVATE));
+
+            outputStreamWriter.write(getBase64FromImage(bp));
+            outputStreamWriter.close();
+        }
+
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+
+        return currentEncodedName;
     }
 }
