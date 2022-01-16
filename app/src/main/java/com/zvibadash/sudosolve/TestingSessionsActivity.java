@@ -24,30 +24,29 @@
 
 package com.zvibadash.sudosolve;
 
-import android.content.Intent;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import com.bumptech.glide.Glide;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-public class HomeActivity extends MainMenuTemplateActivity {
+public class TestingSessionsActivity extends MainMenuTemplateActivity {
+    TextView tvUserPrompt;
+    EditText etSessionContent;
+    Button btSaveSessionContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_testing_sessions);
 
-        ImageView iv = findViewById(R.id.ivHomeGif);
+        tvUserPrompt = findViewById(R.id.tvUserPrompt);
+        etSessionContent = findViewById(R.id.etSessionContent);
+        btSaveSessionContent = findViewById(R.id.btSaveSessionContent);
 
-        // This was taken from https://github.com/bumptech/glide, displays a gif in an imageView.
-        Glide.with(this).load(R.drawable.home_sudoku).into(iv);
-
-        findViewById(R.id.btCameraMode).setOnClickListener(view -> {
-            startActivity(new Intent(this, CameraModeActivity.class));
-        });
-
-        findViewById(R.id.btManualMode).setOnClickListener(view -> {
-            startActivity(new Intent(this, TestingSessionsActivity.class));
-        });
+        tvUserPrompt.setText("Welcome, " + Globals.CURRENT_SESSION.userName + "!\n" + Globals.CURRENT_SESSION.lastBoardState);
+        btSaveSessionContent.setOnClickListener(view -> SessionHandler.updateState(getApplicationContext(), etSessionContent.getText().toString()));
     }
 }

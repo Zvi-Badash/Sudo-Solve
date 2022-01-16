@@ -65,6 +65,7 @@ public class LoginActivity extends LoginMenuTemplateActivity {
                     break;
                 case NO_ERROR:
                     // TODO: make sure the login data moves to the home activity
+                    SessionHandler.delegateSession(getApplicationContext(), username);
                     startActivity(new Intent(this, HomeActivity.class));
                     break;
             }

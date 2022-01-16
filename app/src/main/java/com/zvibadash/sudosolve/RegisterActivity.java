@@ -79,6 +79,7 @@ public class RegisterActivity extends LoginMenuTemplateActivity {
                     Log.i(TAG, "new row inserted into " + SSDBContract.User.TABLE_NAME + ", with key " + newRowId);
 
                     // TODO: make sure the login data moves to the home activity
+                    SessionHandler.delegateSession(getApplicationContext(), username);
                     startActivity(new Intent(this, HomeActivity.class));
                     break;
             }

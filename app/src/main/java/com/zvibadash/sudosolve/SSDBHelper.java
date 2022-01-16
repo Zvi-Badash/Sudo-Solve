@@ -55,7 +55,7 @@ public class SSDBHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_STATISTICS =
             "CREATE TABLE " + Statistics.TABLE_NAME + " (" +
                     Statistics.USERNAME + " TEXT PRIMARY KEY ," +
-                    Statistics.STATISTICS_CONTENTS + "TEXT," +
+                    Statistics.STATISTICS_CONTENTS + " TEXT," +
                     "FOREIGN KEY(" + Statistics.USERNAME + ") REFERENCES " + User.TABLE_NAME + "(" + User.USERNAME + "))";
 
     /*

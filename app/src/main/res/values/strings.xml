@@ -15,7 +15,7 @@
     </string>
 
     <string name="helpStringC">
-        "Your <i>sudo solve</i> will be used for two main reasons: \n\n
+        "Your <i>sudo solve</i> account will be used for two main reasons: \n\n
             (1) With your account, you\'ll never have to leave a Sudoku unfinished and restart all over again, \n\n
                 You can always log out and the current puzzle you are solving will be saved in the system! \n\n
             (2) Another benefit of the account, is that you\'ll be able to keep track of you\'re statistics, and show them off to your friends ;) "

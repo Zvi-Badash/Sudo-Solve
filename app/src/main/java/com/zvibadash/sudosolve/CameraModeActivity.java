@@ -31,7 +31,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -57,7 +61,7 @@ public class CameraModeActivity extends MainMenuTemplateActivity {
     static final String FINAL_IMAGE_PREFIX = "SUDOSOLVE_FINAL_";
     static final String DATE_PATTERN       = "yyyy-MM-dd HH:mm:ss.SSS";
 
-    static final int QUALITY = 30; // Trial & error, seems like a good value
+    static final int QUALITY = 25; // Trial & error, seems like a good value
 
     String currentPhotoPath;
 
@@ -105,6 +109,22 @@ public class CameraModeActivity extends MainMenuTemplateActivity {
         }
     }
 
+    private Bitmap toGrayscale(Bitmap bmpOriginal) {
+        int width, height;
+        height = bmpOriginal.getHeight();
+        width = bmpOriginal.getWidth();
+
+        Bitmap bmpGrayscale = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmpGrayscale);
+        Paint paint = new Paint();
+        ColorMatrix cm = new ColorMatrix();
+        cm.setSaturation(0);
+        ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
+        paint.setColorFilter(f);
+        c.drawBitmap(bmpOriginal, 0, 0, paint);
+        return bmpGrayscale;
+    }
+
     private File createImageFile() throws IOException   {
         // Create an image file name
         String timeStamp = new SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).format(new Date());
@@ -134,9 +154,12 @@ public class CameraModeActivity extends MainMenuTemplateActivity {
                 true
         );
 
+        // Then, convert it to grayscale
+        Bitmap grayed = toGrayscale(rotated);
+
         // Now, encode that image to a byte array.
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        rotated.compress(Bitmap.CompressFormat.JPEG, QUALITY, baos);
+        grayed.compress(Bitmap.CompressFormat.JPEG, QUALITY, baos);
 
         // Return the byte array encoded in base64.
         return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
