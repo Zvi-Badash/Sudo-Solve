@@ -24,6 +24,7 @@
 
 package com.zvibadash.sudosolve;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -37,20 +38,17 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 public class SudokuBoardView extends View {
-    private final float THICKEST = 27.5F;
-    private final float THICK = 15F;
-    private final float THIN = 5F;
-
+    private boolean isEditable;
     private int height, width;
     private int cellSize;
-    private int filledColor, hintColor, errorColor, backgroundColor, lineColor, highlightedColor;
+    private final int filledColor, hintColor, errorColor, backgroundColor, lineColor, highlightedColor;
     private Paint linePaint;
     private Paint backgroundPaint;
     private Paint letterPaint;
     private Paint highlightedPaint;
 
     private int selectedRow = -1, selectedColumn = -1;
-    private SudokuDigit[][] board = new SudokuDigit[9][9];
+    private final SudokuDigit[][] board = new SudokuDigit[9][9];
 
     public SudokuBoardView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -60,6 +58,7 @@ public class SudokuBoardView extends View {
                 0, 0);
 
         try {
+            isEditable = a.getBoolean(R.styleable.SudokuBoardView_isEditable, false);
             filledColor = a.getColor(R.styleable.SudokuBoardView_filledColor, Color.BLUE);
             hintColor = a.getColor(R.styleable.SudokuBoardView_hintColor, Color.BLACK);
             errorColor = a.getColor(R.styleable.SudokuBoardView_errorColor, Color.RED);
@@ -79,7 +78,6 @@ public class SudokuBoardView extends View {
 
         linePaint.setColor(lineColor);
         linePaint.setStyle(Paint.Style.STROKE);
-        linePaint.setStrokeWidth(THICK);
 
         backgroundPaint.setColor(backgroundColor);
         backgroundPaint.setStyle(Paint.Style.FILL);
@@ -92,16 +90,9 @@ public class SudokuBoardView extends View {
         highlightedPaint.setColor(highlightedColor);
         highlightedPaint.setStyle(Paint.Style.FILL);
 
-        for (int i = 0; i < board.length; ++i) {
-            for (int j = 0; j < board[0].length; ++j) {
-                int dig = (int) (Math.random() * 20) + 1;
-                if (1<= dig && dig <= 9)
-                    board[i][j] = new SudokuDigit(dig, dig > 5 ? SudokuDigitType.HINTED : SudokuDigitType.FILLED);
-                else
-                    board[i][j] = new SudokuDigit(-1,SudokuDigitType.EMPTY);
-
-            }
-        }
+        for (int i = 0; i < board.length; ++i)
+            for (int j = 0; j < board[0].length; ++j)
+                board[i][j] = new SudokuDigit(-1, SudokuDigitType.EMPTY);
     }
 
     private int getColorFromType(SudokuDigitType type) {
@@ -117,6 +108,10 @@ public class SudokuBoardView extends View {
 
     private void drawGrid(Canvas canvas) {
         linePaint.setColor(lineColor);
+        final float THIN = 5F;
+        final float THICK = 15F;
+        final float THICKEST = 27.5F;
+
         for (int i = 0; i <= 9; ++i) {
             linePaint.setStrokeWidth(i % 3 == 0 ? THICK : THIN);
 
@@ -136,7 +131,6 @@ public class SudokuBoardView extends View {
         }
 
         linePaint.setStrokeWidth(THICKEST);
-        linePaint.setColor(Color.BLACK);
         canvas.drawLine(
                 0, 0,
                 width, 0,
@@ -147,7 +141,6 @@ public class SudokuBoardView extends View {
                 0, height,
                 linePaint
         );
-
     }
 
     private void drawNumbers(Canvas canvas) {
@@ -181,11 +174,11 @@ public class SudokuBoardView extends View {
         if (selectedColumn == -1 || selectedRow == -1)
             return;
 
-        if (board[selectedRow - 1][selectedColumn - 1].getType() == SudokuDigitType.HINTED)
+        if (board[selectedRow - 1][selectedColumn - 1].getType() == SudokuDigitType.HINTED && !isEditable)
             return;
 
         board[selectedRow - 1][selectedColumn - 1].setDigit(d);
-        board[selectedRow - 1][selectedColumn - 1].setType(SudokuDigitType.FILLED);
+        board[selectedRow - 1][selectedColumn - 1].setType(isEditable ? SudokuDigitType.HINTED : SudokuDigitType.FILLED);
         invalidate();
     }
 
@@ -195,8 +188,8 @@ public class SudokuBoardView extends View {
         invalidate();
     }
 
-    public SudokuDigit getDigitInCell(int row, int col) {
-        return board[row][col];
+    public int getDigitInCell(int row, int col) {
+        return board[row][col].getDigit();
     }
 
     public void clearDigitInSelected() {
@@ -219,16 +212,17 @@ public class SudokuBoardView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        // Draw the selected cell
+        drawSelected(canvas);
+
         // Draw the grid itself
         drawGrid(canvas);
 
         // Draw the numbers
         drawNumbers(canvas);
-
-        // Draw the selected cell
-        drawSelected(canvas);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         boolean isValid;

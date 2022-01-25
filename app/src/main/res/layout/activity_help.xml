@@ -77,7 +77,7 @@
                         style="@style/BasicTextViewStyle"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/proxima_nova"
+                        android:fontFamily="@font/varela_round_regular"
                         android:padding="10dp"
                         android:text="@string/helpStringA"
                         android:textAlignment="viewStart" />
@@ -110,7 +110,7 @@
                         style="@style/BasicTextViewStyle"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/proxima_nova"
+                        android:fontFamily="@font/varela_round_regular"
                         android:padding="10dp"
                         android:text="@string/helpStringB"
                         android:textAlignment="viewStart" />
@@ -127,7 +127,7 @@
                         style="@style/BasicTextViewStyle"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/proxima_nova"
+                        android:fontFamily="@font/varela_round_regular"
                         android:maxWidth="200dp"
                         android:padding="10dp"
                         android:text="@string/helpStringC"
