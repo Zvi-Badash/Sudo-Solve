@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SudoSolve" >
         <activity
+            android:name=".TestingSudokuBoardViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".TestingSessionsActivity"
             android:exported="false" />
         <activity

@@ -24,30 +24,42 @@
 
 package com.zvibadash.sudosolve;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import com.bumptech.glide.Glide;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class HomeActivity extends MainMenuTemplateActivity {
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
+
+public class TestingSudokuBoardViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_testing_sudoku_board_view);
 
-        ImageView iv = findViewById(R.id.ivHomeGif);
+        SudokuBoardView sbv = findViewById(R.id.sbv);
+        Button[] controls = {
+                findViewById(R.id.btSudokuKeyboardOne),
+                findViewById(R.id.btSudokuKeyboardTwo),
+                findViewById(R.id.btSudokuKeyboardThree),
+                findViewById(R.id.btSudokuKeyboardFour),
+                findViewById(R.id.btSudokuKeyboardFive),
+                findViewById(R.id.btSudokuKeyboardSix),
+                findViewById(R.id.btSudokuKeyboardSeven),
+                findViewById(R.id.btSudokuKeyboardEight),
+                findViewById(R.id.btSudokuKeyboardNine),
+                findViewById(R.id.btSudokuKeyboardDel)
+        };
 
-        // This was taken from https://github.com/bumptech/glide, displays a gif in an imageView.
-        Glide.with(this).load(R.drawable.home_sudoku).into(iv);
-
-        findViewById(R.id.btCameraMode).setOnClickListener(view -> {
-            startActivity(new Intent(this, CameraModeActivity.class));
-        });
-
-        findViewById(R.id.btManualMode).setOnClickListener(view -> {
-            startActivity(new Intent(this, TestingSudokuBoardViewActivity.class));
-        });
+        for (int i = 0; i < controls.length; ++i) {
+            int finalI = i;
+            controls[i].setOnClickListener(view -> {
+                if (view.getId() == R.id.btSudokuKeyboardDel)
+                    sbv.clearDigitInSelected();
+                else
+                    sbv.setDigitInSelected(finalI + 1);
+                sbv.unselect();
+            });
+        }
     }
 }

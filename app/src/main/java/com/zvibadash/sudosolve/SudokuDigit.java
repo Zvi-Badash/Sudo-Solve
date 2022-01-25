@@ -24,30 +24,28 @@
 
 package com.zvibadash.sudosolve;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import com.bumptech.glide.Glide;
+public class SudokuDigit {
+    private int digit;
+    private SudokuDigitType type;
 
-public class HomeActivity extends MainMenuTemplateActivity {
+    public SudokuDigit(int digit, SudokuDigitType type) {
+        this.digit = 1 <= digit && digit <= 9 ? digit : -1;
+        this.type = type;
+    }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+    public int getDigit() {
+        return digit;
+    }
 
-        ImageView iv = findViewById(R.id.ivHomeGif);
+    public void setDigit(int digit) {
+        this.digit = digit;
+    }
 
-        // This was taken from https://github.com/bumptech/glide, displays a gif in an imageView.
-        Glide.with(this).load(R.drawable.home_sudoku).into(iv);
+    public SudokuDigitType getType() {
+        return type;
+    }
 
-        findViewById(R.id.btCameraMode).setOnClickListener(view -> {
-            startActivity(new Intent(this, CameraModeActivity.class));
-        });
-
-        findViewById(R.id.btManualMode).setOnClickListener(view -> {
-            startActivity(new Intent(this, TestingSudokuBoardViewActivity.class));
-        });
+    public void setType(SudokuDigitType type) {
+        this.type = type;
     }
 }
