@@ -35,19 +35,20 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.ColorUtils;
 
 public class SudokuBoardView extends View {
-    private boolean isEditable;
+    private final boolean isEditable;
     private int height, width;
     private int cellSize;
-    private final int filledColor, hintColor, errorColor, backgroundColor, lineColor, highlightedColor;
+    @ColorInt private final int filledColor, hintColor, errorColor, lineColor, highlightedColor, lessHighlightedColor;
     private Paint linePaint;
-    private Paint backgroundPaint;
     private Paint letterPaint;
     private Paint highlightedPaint;
 
-    private int selectedRow = -1, selectedColumn = -1;
+    public int selectedRow = -1, selectedColumn = -1;
     private final SudokuDigit[][] board = new SudokuDigit[9][9];
 
     public SudokuBoardView(Context context, @Nullable AttributeSet attrs) {
@@ -62,9 +63,9 @@ public class SudokuBoardView extends View {
             filledColor = a.getColor(R.styleable.SudokuBoardView_filledColor, Color.BLUE);
             hintColor = a.getColor(R.styleable.SudokuBoardView_hintColor, Color.BLACK);
             errorColor = a.getColor(R.styleable.SudokuBoardView_errorColor, Color.RED);
-            backgroundColor = a.getColor(R.styleable.SudokuBoardView_backgroundColor, Color.WHITE);
             lineColor = a.getColor(R.styleable.SudokuBoardView_lineColor, Color.BLACK);
-            highlightedColor = a.getColor(R.styleable.SudokuBoardView_highlightedColor, Color.parseColor("#886bd6d6"));
+            highlightedColor = a.getColor(R.styleable.SudokuBoardView_highlightedColor, Color.parseColor("#AA6bd6d6"));
+            lessHighlightedColor = ColorUtils.setAlphaComponent(highlightedColor, (int) (Color.alpha(highlightedColor) * 0.35F));
         } finally {
             a.recycle();
         }
@@ -73,14 +74,10 @@ public class SudokuBoardView extends View {
     private void init() {
         letterPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         linePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        backgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         highlightedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         linePaint.setColor(lineColor);
         linePaint.setStyle(Paint.Style.STROKE);
-
-        backgroundPaint.setColor(backgroundColor);
-        backgroundPaint.setStyle(Paint.Style.FILL);
 
         letterPaint.setStyle(Paint.Style.FILL);
         letterPaint.setTextAlign(Paint.Align.CENTER);
@@ -161,13 +158,44 @@ public class SudokuBoardView extends View {
         }
     }
 
-    private void drawSelected(Canvas canvas) {
+    private void highlightCell(Canvas canvas, int row, int column) {
         canvas.drawRect(
-                (selectedColumn - 1) * cellSize, (selectedRow - 1) * cellSize,
-                (selectedColumn) * cellSize, (selectedRow) * cellSize,
+                (column - 1) * cellSize, (row - 1) * cellSize,
+                (column) * cellSize, (row) * cellSize,
                 highlightedPaint
         );
-        invalidate();
+    }
+
+    private void drawSelected(Canvas canvas) {
+        // Change the color of the highlightedPaint
+        highlightedPaint.setColor(highlightedColor);
+
+        // Highlight the current cell
+        highlightCell(canvas, selectedRow, selectedColumn);
+
+        // get the left up indices of the box
+        int left = 3 * (int) Math.floor(selectedColumn / 3F - 0.1) + 1;
+        int up   = 3 * (int) Math.floor(selectedRow / 3F - 0.1) + 1;
+
+        Log.i("SUDOKU_CONTROLS", "BOX: (" + left + ", " + up + ")");
+
+        // Change the color of the highlightedPaint
+        highlightedPaint.setColor(lessHighlightedColor);
+
+        // Highlight the current row
+        for (int i = 1; i <= board[0].length; ++i)
+            if (i < up || i > up + 2)
+                highlightCell(canvas, i, selectedColumn);
+
+        // Highlight the current column
+        for (int j = 1; j <= board.length; ++j)
+            if (j < left || j > left + 2)
+                highlightCell(canvas, selectedRow, j);
+
+        // Highlight the current box
+        for (int i = left; i < left + 3; ++i)
+            for (int j = up; j < up + 3; ++j)
+                highlightCell(canvas, j, i);
     }
 
     public void setDigitInSelected(int d) {
@@ -186,10 +214,6 @@ public class SudokuBoardView extends View {
         selectedColumn = -1;
         selectedRow = -1;
         invalidate();
-    }
-
-    public int getDigitInCell(int row, int col) {
-        return board[row][col].getDigit();
     }
 
     public void clearDigitInSelected() {
@@ -225,23 +249,18 @@ public class SudokuBoardView extends View {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        boolean isValid;
-        int action = event.getAction();
         float x = event.getX();
         float y = event.getY();
 
-        if (x < 0 || y < 0 || x > width || y > height)
+        if (x < 0 || y < 0 || x > width - 35 || y > height - 35)
             return false;
 
-        if (action == MotionEvent.ACTION_DOWN) {
-            selectedRow = (int) Math.ceil(y / cellSize);
-            selectedColumn = (int) Math.ceil(x / cellSize);
-            isValid = true;
-        } else {
-            isValid = false;
-        }
+        selectedRow = (int) Math.ceil(y / cellSize);
+        selectedColumn = (int) Math.ceil(x / cellSize);
+
+        invalidate();
         Log.i("SUDOKU_CONTROLS", "(" + selectedColumn + ", " + selectedRow + ")");
-        return isValid;
+
+        return true;
     }
 }
-

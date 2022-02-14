@@ -24,7 +24,6 @@
 
 <resources>
     <declare-styleable name="SudokuBoardView">
-        <attr name="backgroundColor" format="color" />
         <attr name="errorColor" format="color"/>  <!-- TODO: Decide if this is necessary -->
         <attr name="hintColor" format="color"/>   <!-- TODO: Decide if this is necessary -->
         <attr name="filledColor" format="color"/> <!-- TODO: Decide if this is necessary -->
