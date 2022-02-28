@@ -22,29 +22,32 @@
  * SOFTWARE.
  */
 
-package com.zvibadash.sudosolve;
+package com.zvibadash.sudosolve.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.os.CountDownTimer;
 
-public class LoginMenuTemplateActivity extends AppCompatActivity {
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.login_menu, menu);
-        return true;
-    }
+import com.zvibadash.sudosolve.R;
+
+public class WelcomeActivity extends AppCompatActivity {
+    CountDownTimer cdt;
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int itemID = item.getItemId();
-        if (itemID == R.id.opExit) {
-            // TODO: FINALIZE ALL RESOURCES HERE ALSO.
-            finishAffinity();
-        }
-        return super.onOptionsItemSelected(item);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_welcome);
+
+        cdt = new CountDownTimer(1_000, 1_000) {
+            @Override
+            public void onTick(long l) {}
+
+            @Override
+            public void onFinish() {
+                startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+            }
+        }.start();
     }
 }

@@ -22,13 +22,15 @@
  * SOFTWARE.
  */
 
-package com.zvibadash.sudosolve;
+package com.zvibadash.sudosolve.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
+
+import com.zvibadash.sudosolve.R;
+import com.zvibadash.sudosolve.sudokuboard.SudokuBoardView;
 
 public class TestingSudokuBoardViewActivity extends AppCompatActivity {
 

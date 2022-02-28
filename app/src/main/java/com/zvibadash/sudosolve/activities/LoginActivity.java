@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.zvibadash.sudosolve;
+package com.zvibadash.sudosolve.activities;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -33,7 +33,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.zvibadash.sudosolve.SSDBContract.User;
+import com.zvibadash.sudosolve.R;
+import com.zvibadash.sudosolve.database.SSDBContract.User;
+import com.zvibadash.sudosolve.database.SSDBHelper;
+import com.zvibadash.sudosolve.SessionHandler;
 
 import java.util.regex.Pattern;
 

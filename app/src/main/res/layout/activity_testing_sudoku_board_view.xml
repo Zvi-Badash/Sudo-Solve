@@ -28,7 +28,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TestingSudokuBoardViewActivity">
+    tools:context=".activities.TestingSudokuBoardViewActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.07999998">
 
-        <com.zvibadash.sudosolve.SudokuBoardView
+        <com.zvibadash.sudosolve.sudokuboard.SudokuBoardView
             android:id="@+id/sbv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

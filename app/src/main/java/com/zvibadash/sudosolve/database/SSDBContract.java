@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.zvibadash.sudosolve;
+package com.zvibadash.sudosolve.database;
 
 
 import android.provider.BaseColumns;

@@ -22,15 +22,38 @@
  * SOFTWARE.
  */
 
-package com.zvibadash.sudosolve;
+package com.zvibadash.sudosolve.sudokuboard;
 
-import android.os.Bundle;
+import android.widget.Button;
 
-public class SettingsActivity extends MainMenuTemplateActivity {
+public class SudokuBoardEditor {
+    SudokuBoardView sbv;
+    Button[] digitControls;
+    Button btnMagic, btnErase;
+    Boolean isSolve;
+    int[][] solved;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+    public SudokuBoardEditor(SudokuBoardView sbv, Button[] digitControls, Button btnMagic, Button btnErase, Boolean isSolve, int[][] solved) {
+        this.sbv = sbv;
+        this.digitControls = digitControls;
+        this.btnMagic = btnMagic;
+        this.btnErase = btnErase;
+        this.isSolve = isSolve;
+        this.solved = solved;
+
+        // Set the onClick for each button
+        btnErase.setOnClickListener(v -> {
+            sbv.clearDigitInSelected();
+        });
+
+        btnMagic.setOnClickListener(v -> {
+            if(isSolve)
+                sbv.setDigitInSelected(solved[sbv.selectedRow - 1][sbv.selectedColumn - 1]);
+        });
+
+        for (int i = 0; i < digitControls.length; ++i) {
+            int finalI = i;
+            digitControls[i].setOnClickListener(view -> sbv.setDigitInSelected(finalI + 1));
+        }
     }
 }

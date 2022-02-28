@@ -19,37 +19,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SudoSolve" >
         <activity
-            android:name=".TestingSudokuBoardViewActivity"
+            android:name=".activities.TestingSudokuBoardViewActivity"
             android:exported="false" />
         <activity
-            android:name=".TestingSessionsActivity"
+            android:name=".activities.TestingSessionsActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginMenuTemplateActivity"
+            android:name=".activities.LoginMenuTemplateActivity"
             android:exported="false" />
         <activity
-            android:name=".CameraModeActivity"
+            android:name=".activities.CameraModeActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".HelpActivity"
+            android:name=".activities.HelpActivity"
             android:exported="false" />
         <activity
-            android:name=".MainMenuTemplateActivity"
+            android:name=".activities.MainMenuTemplateActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".activities.WelcomeActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.zvibadash.sudosolve;
+package com.zvibadash.sudosolve.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +32,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.zvibadash.sudosolve.R;
 
 public class MainMenuTemplateActivity extends AppCompatActivity {
     // Found this in StackOverflow when trying to display icons

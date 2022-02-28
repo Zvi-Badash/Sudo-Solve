@@ -22,38 +22,30 @@
  * SOFTWARE.
  */
 
-package com.zvibadash.sudosolve;
+package com.zvibadash.sudosolve.sudokuboard;
 
-import android.widget.Button;
+public class SudokuDigit {
+    private int digit;
+    private SudokuDigitType type;
 
-public class SudokuBoardEditor {
-    SudokuBoardView sbv;
-    Button[] digitControls;
-    Button btnMagic, btnErase;
-    Boolean isSolve;
-    int[][] solved;
+    public SudokuDigit(int digit, SudokuDigitType type) {
+        this.digit = 1 <= digit && digit <= 9 ? digit : -1;
+        this.type = type;
+    }
 
-    public SudokuBoardEditor(SudokuBoardView sbv, Button[] digitControls, Button btnMagic, Button btnErase, Boolean isSolve, int[][] solved) {
-        this.sbv = sbv;
-        this.digitControls = digitControls;
-        this.btnMagic = btnMagic;
-        this.btnErase = btnErase;
-        this.isSolve = isSolve;
-        this.solved = solved;
+    public int getDigit() {
+        return digit;
+    }
 
-        // Set the onClick for each button
-        btnErase.setOnClickListener(v -> {
-            sbv.clearDigitInSelected();
-        });
+    public void setDigit(int digit) {
+        this.digit = digit;
+    }
 
-        btnMagic.setOnClickListener(v -> {
-            if(isSolve)
-                sbv.setDigitInSelected(solved[sbv.selectedRow - 1][sbv.selectedColumn - 1]);
-        });
+    public SudokuDigitType getType() {
+        return type;
+    }
 
-        for (int i = 0; i < digitControls.length; ++i) {
-            int finalI = i;
-            digitControls[i].setOnClickListener(view -> sbv.setDigitInSelected(finalI + 1));
-        }
+    public void setType(SudokuDigitType type) {
+        this.type = type;
     }
 }

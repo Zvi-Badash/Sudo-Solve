@@ -22,8 +22,17 @@
  * SOFTWARE.
  */
 
-package com.zvibadash.sudosolve;
+package com.zvibadash.sudosolve.activities;
 
-public enum SudokuDigitType {
-    HINTED, FILLED, ERROR, EMPTY
+import android.os.Bundle;
+
+import com.zvibadash.sudosolve.R;
+
+public class HelpActivity extends MainMenuTemplateActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_help);
+    }
 }

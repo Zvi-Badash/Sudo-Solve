@@ -29,7 +29,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/White_Baby_Blue_Eyes"
-    tools:context=".HelpActivity">
+    tools:context=".activities.HelpActivity">
 
     <ScrollView
         android:layout_width="411dp"

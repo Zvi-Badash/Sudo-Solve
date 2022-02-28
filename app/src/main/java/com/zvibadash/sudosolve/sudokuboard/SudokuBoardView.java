@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.zvibadash.sudosolve;
+package com.zvibadash.sudosolve.sudokuboard;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -38,6 +38,8 @@ import android.view.View;
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.ColorUtils;
+
+import com.zvibadash.sudosolve.R;
 
 public class SudokuBoardView extends View {
     private final boolean isEditable;

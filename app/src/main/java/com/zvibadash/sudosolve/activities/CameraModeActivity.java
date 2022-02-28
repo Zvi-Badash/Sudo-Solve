@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.zvibadash.sudosolve;
+package com.zvibadash.sudosolve.activities;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
@@ -43,6 +43,8 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.ImageView;
+
+import com.zvibadash.sudosolve.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

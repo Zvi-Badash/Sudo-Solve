@@ -22,12 +22,12 @@
  * SOFTWARE.
  */
 
-package com.zvibadash.sudosolve;
+package com.zvibadash.sudosolve.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.zvibadash.sudosolve.SSDBContract.*;
+import com.zvibadash.sudosolve.database.SSDBContract.*;
 
 public class SSDBHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.

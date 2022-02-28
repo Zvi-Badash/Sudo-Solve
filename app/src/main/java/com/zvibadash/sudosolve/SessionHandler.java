@@ -30,6 +30,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.zvibadash.sudosolve.database.SSDBContract;
+import com.zvibadash.sudosolve.database.SSDBHelper;
+
 
 // TODO: PRIORITY: MINOR.
 //       DESC: There could be a risk for SQL injection in all of the following methods,
