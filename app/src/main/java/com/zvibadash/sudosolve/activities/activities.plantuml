@@ -1,34 +1,26 @@
 @startuml
 
-title __SUDO_SOLVE.APP's Class Diagram__\n
-
-  namespace com.zvibadash.sudosolve {
-    class com.zvibadash.sudosolve.BuildConfig {
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    class com.zvibadash.sudosolve.Globals {
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    class com.zvibadash.sudosolve.Session {
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    class com.zvibadash.sudosolve.SessionHandler {
-    }
-  }
-  
+title __ACTIVITIES's Class Diagram__\n
 
   namespace com.zvibadash.sudosolve {
     namespace activities {
       class com.zvibadash.sudosolve.activities.CameraModeActivity {
+          {static} ~ DATE_PATTERN : String
+          {static} ~ FINAL_IMAGE_PREFIX : String
+          {static} ~ IMG_SUFFIX : String
+          {static} ~ QUALITY : int
+          {static} ~ RAW_IMAGE_PREFIX : String
+          {static} ~ REQUEST_IMAGE_CAPTURE : int
+          {static} ~ TXT_SUFFIX : String
+          ~ currentPhotoPath : String
+          # onActivityResult()
+          # onCreate()
+          - createImageFile()
+          - createTextB64File()
+          - dispatchTakePictureIntent()
+          - getBase64FromImage()
+          - setImageFromPath()
+          - toGrayscale()
       }
     }
   }
@@ -37,6 +29,7 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   namespace com.zvibadash.sudosolve {
     namespace activities {
       class com.zvibadash.sudosolve.activities.HelpActivity {
+          # onCreate()
       }
     }
   }
@@ -45,6 +38,7 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   namespace com.zvibadash.sudosolve {
     namespace activities {
       class com.zvibadash.sudosolve.activities.HomeActivity {
+          # onCreate()
       }
     }
   }
@@ -53,6 +47,12 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   namespace com.zvibadash.sudosolve {
     namespace activities {
       class com.zvibadash.sudosolve.activities.LoginActivity {
+          ~ NO_ERROR : int
+          {static} ~ TAG : String
+          ~ USERNAME_ERROR : int
+          ~ db : SQLiteDatabase
+          # onCreate()
+          - isValidUsername()
       }
     }
   }
@@ -61,6 +61,8 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   namespace com.zvibadash.sudosolve {
     namespace activities {
       class com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity {
+          + onCreateOptionsMenu()
+          + onOptionsItemSelected()
       }
     }
   }
@@ -69,6 +71,8 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   namespace com.zvibadash.sudosolve {
     namespace activities {
       class com.zvibadash.sudosolve.activities.MainMenuTemplateActivity {
+          + onCreateOptionsMenu()
+          + onOptionsItemSelected()
       }
     }
   }
@@ -77,6 +81,14 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   namespace com.zvibadash.sudosolve {
     namespace activities {
       class com.zvibadash.sudosolve.activities.RegisterActivity {
+          ~ ALPHANUMERIC_ERROR : int
+          ~ ALREADY_EXISTS_ERROR : int
+          ~ LENGTH_ERROR : int
+          ~ NO_ERROR : int
+          {static} ~ TAG : String
+          ~ db : SQLiteDatabase
+          # onCreate()
+          - isValidUsername()
       }
     }
   }
@@ -85,6 +97,7 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   namespace com.zvibadash.sudosolve {
     namespace activities {
       class com.zvibadash.sudosolve.activities.SettingsActivity {
+          # onCreate()
       }
     }
   }
@@ -93,6 +106,10 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   namespace com.zvibadash.sudosolve {
     namespace activities {
       class com.zvibadash.sudosolve.activities.TestingSessionsActivity {
+          ~ btSaveSessionContent : Button
+          ~ etSessionContent : EditText
+          ~ tvUserPrompt : TextView
+          # onCreate()
       }
     }
   }
@@ -101,6 +118,7 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   namespace com.zvibadash.sudosolve {
     namespace activities {
       class com.zvibadash.sudosolve.activities.TestingSudokuBoardViewActivity {
+          # onCreate()
       }
     }
   }
@@ -109,118 +127,8 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   namespace com.zvibadash.sudosolve {
     namespace activities {
       class com.zvibadash.sudosolve.activities.WelcomeActivity {
-      }
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    namespace database {
-      class com.zvibadash.sudosolve.database.SSDBContract {
-      }
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    namespace database {
-      class com.zvibadash.sudosolve.database.SSDBHelper {
-      }
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    namespace networking {
-      class com.zvibadash.sudosolve.networking.APIClient {
-      }
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    namespace networking {
-      interface com.zvibadash.sudosolve.networking.APIInterface {
-      }
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    namespace networking {
-      enum DifficultyLevel {
-      }
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    namespace networking {
-      class com.zvibadash.sudosolve.networking.RequestGeneration {
-      }
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    namespace networking {
-      class com.zvibadash.sudosolve.networking.RequestSolve {
-      }
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    namespace networking {
-      class com.zvibadash.sudosolve.networking.ResponseCheckConnection {
-      }
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    namespace networking {
-      class com.zvibadash.sudosolve.networking.ResponseGenerated {
-      }
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    namespace networking {
-      class com.zvibadash.sudosolve.networking.ResponseSolved {
-      }
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    namespace sudokuboard {
-      class com.zvibadash.sudosolve.sudokuboard.SudokuBoardEditor {
-      }
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    namespace sudokuboard {
-      class com.zvibadash.sudosolve.sudokuboard.SudokuBoardView {
-      }
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    namespace sudokuboard {
-      class com.zvibadash.sudosolve.sudokuboard.SudokuDigit {
-      }
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    namespace sudokuboard {
-      enum SudokuDigitType {
+          ~ cdt : CountDownTimer
+          # onCreate()
       }
     }
   }
@@ -239,11 +147,6 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   com.zvibadash.sudosolve.activities.TestingSessionsActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
   com.zvibadash.sudosolve.activities.TestingSudokuBoardViewActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.zvibadash.sudosolve.activities.WelcomeActivity -up-|> androidx.appcompat.app.AppCompatActivity
-  com.zvibadash.sudosolve.database.SSDBHelper -up-|> android.database.sqlite.SQLiteOpenHelper
-  com.zvibadash.sudosolve.networking.RequestGeneration o-- com.zvibadash.sudosolve.networking.DifficultyLevel : diffLevel
-  com.zvibadash.sudosolve.sudokuboard.SudokuBoardEditor o-- com.zvibadash.sudosolve.sudokuboard.SudokuBoardView : sbv
-  com.zvibadash.sudosolve.sudokuboard.SudokuBoardView -up-|> android.view.View
-  com.zvibadash.sudosolve.sudokuboard.SudokuDigit o-- com.zvibadash.sudosolve.sudokuboard.SudokuDigitType : type
 
 
 right footer
