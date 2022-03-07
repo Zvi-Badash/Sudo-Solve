@@ -24,13 +24,26 @@
 
 package com.zvibadash.sudosolve.activities;
 
+import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.ImageButton;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.widget.Button;
-
+import com.zvibadash.sudosolve.Globals;
 import com.zvibadash.sudosolve.R;
+import com.zvibadash.sudosolve.networking.APIClient;
+import com.zvibadash.sudosolve.networking.APIInterface;
+import com.zvibadash.sudosolve.networking.RequestSolve;
+import com.zvibadash.sudosolve.networking.ResponseSolved;
 import com.zvibadash.sudosolve.sudokuboard.SudokuBoardView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TestingSudokuBoardViewActivity extends AppCompatActivity {
 
@@ -40,7 +53,7 @@ public class TestingSudokuBoardViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_testing_sudoku_board_view);
 
         SudokuBoardView sbv = findViewById(R.id.sbv);
-        Button[] controls = {
+        Button[] digitControls = {
                 findViewById(R.id.btSudokuKeyboardOne),
                 findViewById(R.id.btSudokuKeyboardTwo),
                 findViewById(R.id.btSudokuKeyboardThree),
@@ -50,16 +63,54 @@ public class TestingSudokuBoardViewActivity extends AppCompatActivity {
                 findViewById(R.id.btSudokuKeyboardSeven),
                 findViewById(R.id.btSudokuKeyboardEight),
                 findViewById(R.id.btSudokuKeyboardNine),
-                findViewById(R.id.btSudokuKeyboardDel)
         };
 
-        for (int i = 0; i < controls.length; ++i) {
+        ImageButton btnErase = findViewById(R.id.btnErase);
+        ImageButton btnMagic = findViewById(R.id.btnMagic);
+
+        // Set the onClick for each button
+        btnErase.setOnClickListener(v -> {
+            sbv.clearDigitInSelected();
+            sbv.unselect();
+        });
+
+        btnMagic.setOnClickListener(v -> {
+            if (Globals.HAS_CONNECTION_TO_SERVER) {
+                final ProgressDialog progressDialog = new ProgressDialog(this);
+                progressDialog.setCancelable(false);
+                progressDialog.setMessage("Solving...");
+                progressDialog.show();
+
+                APIInterface client = APIClient.getClient();
+                String board = sbv.getBoardAsString();
+
+                client.solve(new RequestSolve(board)).enqueue(new Callback<ResponseSolved>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ResponseSolved> call, @NonNull Response<ResponseSolved> response) {
+                        progressDialog.dismiss();
+                        if (response.isSuccessful()) {
+                            ResponseSolved responseFromAPI = response.body();
+                            assert responseFromAPI != null;
+                            StringBuilder solved = new StringBuilder(responseFromAPI.getSolved());
+                            sbv.setDigitInSelected(solved.charAt(9 * (sbv.selectedRow - 1) + (sbv.selectedColumn - 1)) - '0');
+                            Log.i("DIGIT", String.valueOf(solved.charAt(9 * (sbv.selectedRow - 1) + (sbv.selectedColumn - 1))));
+                        } else
+                            Log.e("CONNECTION", "ERROR CONNECTING.");
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<ResponseSolved> call, @NonNull Throwable t) {
+                        progressDialog.dismiss();
+                        Log.e("CONNECTION", t.getMessage());
+                    }
+                });
+            }
+        });
+
+        for (int i = 0; i < digitControls.length; ++i) {
             int finalI = i;
-            controls[i].setOnClickListener(view -> {
-                if (view.getId() == R.id.btSudokuKeyboardDel)
-                    sbv.clearDigitInSelected();
-                else
-                    sbv.setDigitInSelected(finalI + 1);
+            digitControls[i].setOnClickListener(view -> {
+                sbv.setDigitInSelected(finalI + 1);
                 sbv.unselect();
             });
         }

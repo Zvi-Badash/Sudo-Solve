@@ -26,4 +26,5 @@ package com.zvibadash.sudosolve;
 
 public class Globals {
     public static Session CURRENT_SESSION;
+    public static boolean HAS_CONNECTION_TO_SERVER = false;
 }

@@ -218,6 +218,14 @@ public class SudokuBoardView extends View {
         invalidate();
     }
 
+    public String getBoardAsString() {
+        StringBuilder sb = new StringBuilder();
+        for (SudokuDigit[] row : board)
+            for (SudokuDigit digit : row)
+                sb.append(1 <= digit.getDigit() && digit.getDigit() <= 9 ? String.valueOf(digit.getDigit()) : "0");
+        return sb.toString();
+    }
+
     public void clearDigitInSelected() {
         setDigitInSelected(-1);
     }

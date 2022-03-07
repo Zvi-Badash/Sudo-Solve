@@ -24,13 +24,24 @@
 
 package com.zvibadash.sudosolve.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 
+import com.zvibadash.sudosolve.Globals;
 import com.zvibadash.sudosolve.R;
+import com.zvibadash.sudosolve.networking.APIClient;
+import com.zvibadash.sudosolve.networking.APIInterface;
+import com.zvibadash.sudosolve.networking.ResponseCheckConnection;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class WelcomeActivity extends AppCompatActivity {
     CountDownTimer cdt;
@@ -49,5 +60,25 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
             }
         }.start();
+
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Checking connection to server at " + APIInterface.BASE_URL + "...");
+        progressDialog.show();
+
+        APIInterface client = APIClient.getClient();
+        client.isConnected().enqueue(new Callback<ResponseCheckConnection>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseCheckConnection> call, @NonNull Response<ResponseCheckConnection> response) {
+                progressDialog.dismiss();
+                Globals.HAS_CONNECTION_TO_SERVER = response.isSuccessful();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseCheckConnection> call, @NonNull Throwable t) {
+                progressDialog.dismiss();
+                Log.e("CONNECTION", t.getMessage());
+            }
+        });
     }
 }

@@ -44,10 +44,12 @@
             android:id="@+id/sbv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:isEditable="false"
             app:highlightedColor="#BB8BC34A"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="-37dp" />
+            app:isEditable="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -73,21 +75,24 @@
                     android:layout_width="48dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="8pt"
-                    android:text="1" />
+                    android:text="1"
+                    style="?android:attr/buttonBarButtonStyle" />
 
                 <Button
                     android:id="@+id/btSudokuKeyboardTwo"
                     android:layout_width="48dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="8pt"
-                    android:text="2" />
+                    android:text="2"
+                    style="?android:attr/buttonBarButtonStyle" />
 
                 <Button
                     android:id="@+id/btSudokuKeyboardThree"
                     android:layout_width="48dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="8pt"
-                    android:text="3" />
+                    android:text="3"
+                    style="?android:attr/buttonBarButtonStyle" />
             </TableRow>
 
             <TableRow
@@ -99,21 +104,24 @@
                     android:layout_width="20pt"
                     android:layout_height="wrap_content"
                     android:layout_margin="8pt"
-                    android:text="4" />
+                    android:text="4"
+                    style="?android:attr/buttonBarButtonStyle" />
 
                 <Button
                     android:id="@+id/btSudokuKeyboardFive"
                     android:layout_width="20pt"
                     android:layout_height="wrap_content"
                     android:layout_margin="8pt"
-                    android:text="5" />
+                    android:text="5"
+                    style="?android:attr/buttonBarButtonStyle" />
 
                 <Button
                     android:id="@+id/btSudokuKeyboardSix"
                     android:layout_width="20pt"
                     android:layout_height="wrap_content"
                     android:layout_margin="8pt"
-                    android:text="6" />
+                    android:text="6"
+                    style="?android:attr/buttonBarButtonStyle" />
             </TableRow>
 
             <TableRow
@@ -127,7 +135,8 @@
                     android:layout_margin="8pt"
                     android:minHeight="48dp"
                     android:text="7"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    tools:ignore="TouchTargetSizeCheck"
+                    style="?android:attr/buttonBarButtonStyle" />
 
                 <Button
                     android:id="@+id/btSudokuKeyboardEight"
@@ -136,7 +145,8 @@
                     android:layout_margin="8pt"
                     android:minHeight="48dp"
                     android:text="8"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    tools:ignore="TouchTargetSizeCheck"
+                    style="?android:attr/buttonBarButtonStyle" />
 
                 <Button
                     android:id="@+id/btSudokuKeyboardNine"
@@ -145,18 +155,44 @@
                     android:layout_margin="8pt"
                     android:minHeight="48dp"
                     android:text="9"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    tools:ignore="TouchTargetSizeCheck"
+                    style="?android:attr/buttonBarButtonStyle" />
             </TableRow>
 
         </TableLayout>
 
-        <Button
-            android:id="@+id/btSudokuKeyboardDel"
-            android:layout_width="90pt"
-            android:layout_height="match_parent"
-            android:layout_margin="10pt"
-            android:layout_weight="1"
-            android:text="DEL" />
+        <TableLayout
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <ImageButton
+                    android:id="@+id/btnMagic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="18dp"
+                    app:srcCompat="@drawable/ic_wand" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <ImageButton
+                    android:id="@+id/btnErase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="18dp"
+                    app:srcCompat="@android:drawable/ic_menu_delete" />
+
+            </TableRow>
+        </TableLayout>
 
     </LinearLayout>
 
