@@ -25,6 +25,7 @@
 package com.zvibadash.sudosolve.sudokuboard;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -36,10 +37,20 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.ColorUtils;
 
+import com.zvibadash.sudosolve.Globals;
 import com.zvibadash.sudosolve.R;
+import com.zvibadash.sudosolve.networking.APIClient;
+import com.zvibadash.sudosolve.networking.APIInterface;
+import com.zvibadash.sudosolve.networking.RequestSolve;
+import com.zvibadash.sudosolve.networking.ResponseSolved;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SudokuBoardView extends View {
     private final boolean isEditable;
@@ -51,7 +62,7 @@ public class SudokuBoardView extends View {
     private Paint highlightedPaint;
 
     public int selectedRow = -1, selectedColumn = -1;
-    private final SudokuDigit[][] board = new SudokuDigit[9][9];
+    public final SudokuDigit[][] board = new SudokuDigit[9][9];
 
     public SudokuBoardView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -71,9 +82,10 @@ public class SudokuBoardView extends View {
         } finally {
             a.recycle();
         }
+        _init();
     }
 
-    private void init() {
+    private void _init() {
         letterPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         linePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         highlightedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -94,7 +106,7 @@ public class SudokuBoardView extends View {
                 board[i][j] = new SudokuDigit(-1, SudokuDigitType.EMPTY);
     }
 
-    private int getColorFromType(SudokuDigitType type) {
+    private int _getColorFromType(SudokuDigitType type) {
         switch (type) {
             case ERROR:
                 return errorColor;
@@ -105,7 +117,7 @@ public class SudokuBoardView extends View {
         }
     }
 
-    private void drawGrid(Canvas canvas) {
+    private void _drawGrid(Canvas canvas) {
         linePaint.setColor(lineColor);
         final float THIN = 5F;
         final float THICK = 15F;
@@ -142,12 +154,12 @@ public class SudokuBoardView extends View {
         );
     }
 
-    private void drawNumbers(Canvas canvas) {
+    private void _drawNumbers(Canvas canvas) {
         for (int i = 0; i < board.length; ++i) {
             for (int j = 0; j < board[0].length; ++j) {
                 SudokuDigit currDigit = board[i][j];
                 if (1 <= currDigit.getDigit() && currDigit.getDigit() <= 9) {
-                    letterPaint.setColor(getColorFromType(currDigit.getType()));
+                    letterPaint.setColor(_getColorFromType(currDigit.getType()));
                     canvas.drawText(
                             Integer.toString(currDigit.getDigit()),
                             // TODO: FIGURE THIS OUT
@@ -160,7 +172,7 @@ public class SudokuBoardView extends View {
         }
     }
 
-    private void highlightCell(Canvas canvas, int row, int column) {
+    private void _highlightCell(Canvas canvas, int row, int column) {
         canvas.drawRect(
                 (column - 1) * cellSize, (row - 1) * cellSize,
                 (column) * cellSize, (row) * cellSize,
@@ -168,16 +180,16 @@ public class SudokuBoardView extends View {
         );
     }
 
-    private void drawSelected(Canvas canvas) {
+    private void _drawSelected(Canvas canvas) {
         // Change the color of the highlightedPaint
         highlightedPaint.setColor(highlightedColor);
 
         // Highlight the current cell
-        highlightCell(canvas, selectedRow, selectedColumn);
+        _highlightCell(canvas, selectedRow, selectedColumn);
 
         // get the left up indices of the box
         int left = 3 * (int) Math.floor(selectedColumn / 3F - 0.1) + 1;
-        int up   = 3 * (int) Math.floor(selectedRow / 3F - 0.1) + 1;
+        int up = 3 * (int) Math.floor(selectedRow / 3F - 0.1) + 1;
 
         Log.i("SUDOKU_CONTROLS", "BOX: (" + left + ", " + up + ")");
 
@@ -187,17 +199,17 @@ public class SudokuBoardView extends View {
         // Highlight the current row
         for (int i = 1; i <= board[0].length; ++i)
             if (i < up || i > up + 2)
-                highlightCell(canvas, i, selectedColumn);
+                _highlightCell(canvas, i, selectedColumn);
 
         // Highlight the current column
         for (int j = 1; j <= board.length; ++j)
             if (j < left || j > left + 2)
-                highlightCell(canvas, selectedRow, j);
+                _highlightCell(canvas, selectedRow, j);
 
         // Highlight the current box
         for (int i = left; i < left + 3; ++i)
             for (int j = up; j < up + 3; ++j)
-                highlightCell(canvas, j, i);
+                _highlightCell(canvas, j, i);
     }
 
     public void setDigitInSelected(int d) {
@@ -209,6 +221,27 @@ public class SudokuBoardView extends View {
 
         board[selectedRow - 1][selectedColumn - 1].setDigit(d);
         board[selectedRow - 1][selectedColumn - 1].setType(isEditable ? SudokuDigitType.HINTED : SudokuDigitType.FILLED);
+        invalidate();
+    }
+
+    public void setDigitHintInSelected(int d) {
+        if (selectedColumn == -1 || selectedRow == -1)
+            return;
+
+        board[selectedRow - 1][selectedColumn - 1].setDigit(d);
+        board[selectedRow - 1][selectedColumn - 1].setType(SudokuDigitType.HINTED);
+        invalidate();
+    }
+
+    public void fillDigitInSelected(int d) {
+        if (selectedColumn == -1 || selectedRow == -1)
+            return;
+
+        if (board[selectedRow - 1][selectedColumn - 1].getType() == SudokuDigitType.HINTED && !isEditable)
+            return;
+
+        board[selectedRow - 1][selectedColumn - 1].setDigit(d);
+        board[selectedRow - 1][selectedColumn - 1].setType(SudokuDigitType.FILLED);
         invalidate();
     }
 
@@ -230,10 +263,114 @@ public class SudokuBoardView extends View {
         setDigitInSelected(-1);
     }
 
+    public void setBoardFromString(String newBoard) {
+        for (int i = 0; i < newBoard.length(); ++i) {
+            int d = newBoard.charAt(i) - '0';
+            selectedColumn = i % 9 + 1;
+            selectedRow = i / 9 + 1;
+
+            if (d == 0) {
+                setDigitInSelected(d);
+            } else {
+                setDigitHintInSelected(d);
+            }
+        }
+        unselect();
+    }
+
+    public void clearAllFilled() {
+        for (int i = 0; i < board.length; ++i) {
+            for (int j = 0; j < board[0].length; ++j) {
+                selectedRow = i + 1;
+                selectedColumn = j + 1;
+                if (board[selectedRow - 1][selectedColumn - 1].getType() == SudokuDigitType.FILLED)
+                    clearDigitInSelected();
+            }
+        }
+        unselect();
+    }
+
+    public void magicFillSelected(Context context, StringBuilder[] cachedSolve) {
+        if (selectedColumn == -1 || selectedRow == -1)
+            return;
+
+        if (Globals.HAS_CONNECTION_TO_SERVER) {
+            if (cachedSolve[0] != null) {
+                this.fillDigitInSelected(cachedSolve[0].charAt(9 * (this.selectedRow - 1) + (this.selectedColumn - 1)) - '0');
+            } else {
+                final ProgressDialog progressDialog = new ProgressDialog(context);
+                progressDialog.setCancelable(false);
+                progressDialog.setMessage("Solving...");
+                progressDialog.show();
+
+                APIInterface client = APIClient.getClient();
+                String board = this.getBoardAsString();
+
+                client.solve(new RequestSolve(board)).enqueue(new Callback<ResponseSolved>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ResponseSolved> call, @NonNull Response<ResponseSolved> response) {
+                        progressDialog.dismiss();
+                        if (response.isSuccessful()) {
+                            ResponseSolved responseFromAPI = response.body();
+                            assert responseFromAPI != null;
+
+                            if (cachedSolve[0] == null)
+                                cachedSolve[0] = new StringBuilder(responseFromAPI.getSolved());
+
+                            fillDigitInSelected(cachedSolve[0].charAt(9 * (selectedRow - 1) + (selectedColumn - 1)) - '0');
+                            Log.i("DIGIT", String.valueOf(cachedSolve[0].charAt(9 * (selectedRow - 1) + (selectedColumn - 1))));
+                        } else
+                            Log.e("CONNECTION", "ERROR CONNECTING.");
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<ResponseSolved> call, @NonNull Throwable t) {
+                        progressDialog.dismiss();
+                        Log.e("CONNECTION", t.getMessage());
+                    }
+                });
+            }
+        }
+    }
+
+    public void requestAndPrepareSolve(Context context, StringBuilder[] cachedSolve) {
+        if (Globals.HAS_CONNECTION_TO_SERVER) {
+            if (cachedSolve[0] == null) {
+                final ProgressDialog progressDialog = new ProgressDialog(context);
+                progressDialog.setCancelable(false);
+                progressDialog.setMessage("Solving...");
+                progressDialog.show();
+
+                APIInterface client = APIClient.getClient();
+                String board = this.getBoardAsString();
+
+                client.solve(new RequestSolve(board)).enqueue(new Callback<ResponseSolved>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ResponseSolved> call, @NonNull Response<ResponseSolved> response) {
+                        progressDialog.dismiss();
+                        if (response.isSuccessful()) {
+                            ResponseSolved responseFromAPI = response.body();
+                            assert responseFromAPI != null;
+
+                            cachedSolve[0] = new StringBuilder(responseFromAPI.getSolved());
+                        } else
+                            Log.e("CONNECTION", "ERROR CONNECTING.");
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<ResponseSolved> call, @NonNull Throwable t) {
+                        progressDialog.dismiss();
+                        Log.e("CONNECTION", t.getMessage());
+                    }
+                });
+            }
+        }
+    }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        init();
+        _init();
 
         // Figure out how big we can make the board and it's cells.
         int maxdim = Math.min(w, h);
@@ -247,13 +384,13 @@ public class SudokuBoardView extends View {
         super.onDraw(canvas);
 
         // Draw the selected cell
-        drawSelected(canvas);
+        _drawSelected(canvas);
 
         // Draw the grid itself
-        drawGrid(canvas);
+        _drawGrid(canvas);
 
         // Draw the numbers
-        drawNumbers(canvas);
+        _drawNumbers(canvas);
     }
 
     @SuppressLint("ClickableViewAccessibility")

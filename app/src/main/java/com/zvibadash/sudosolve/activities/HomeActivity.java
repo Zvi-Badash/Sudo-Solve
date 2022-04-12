@@ -27,6 +27,7 @@ package com.zvibadash.sudosolve.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
+
 import com.bumptech.glide.Glide;
 import com.zvibadash.sudosolve.R;
 
@@ -46,8 +47,9 @@ public class HomeActivity extends MainMenuTemplateActivity {
             startActivity(new Intent(this, CameraModeActivity.class));
         });
 
-        findViewById(R.id.btManualMode).setOnClickListener(view -> {
-            startActivity(new Intent(this, TestingSudokuBoardViewActivity.class));
+        findViewById(R.id.btRandomMode).setOnClickListener(view -> {
+            startActivity(new Intent(this, SudokuSolvingActivity.class)
+                    .putExtra("board", "100600270080920100700000000200500009008000701090100400040208005000000340000000000"));
         });
     }
 }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ MIT License
   ~
   ~ Copyright (c) 2021 Zvi Badash
@@ -23,11 +22,13 @@
   ~ SOFTWARE.
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.MainMenuTemplateActivity">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/opSolve"
+        android:icon="@drawable/ic_check_action"
+        android:title="Solve the puzzle!" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <item android:id="@+id/opClear"
+        android:icon="@drawable/ic_clean_action"
+        android:title="Clear the puzzle" />
+
+</menu>

@@ -44,14 +44,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class WelcomeActivity extends AppCompatActivity {
-    CountDownTimer cdt;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        cdt = new CountDownTimer(1_000, 1_000) {
+        new CountDownTimer(1_000, 1_000) {
             @Override
             public void onTick(long l) {}
 

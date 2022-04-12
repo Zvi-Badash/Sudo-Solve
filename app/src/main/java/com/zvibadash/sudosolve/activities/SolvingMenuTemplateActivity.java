@@ -24,28 +24,41 @@
 
 package com.zvibadash.sudosolve.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.zvibadash.sudosolve.R;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 
-public class LoginMenuTemplateActivity extends AppCompatActivity {
+import com.zvibadash.sudosolve.R;
+import com.zvibadash.sudosolve.sudokuboard.SudokuBoardView;
+
+public class SolvingMenuTemplateActivity extends AppCompatActivity {
+    @SuppressLint("RestrictedApi")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.login_menu, menu);
+        if (menu instanceof MenuBuilder) {
+            MenuBuilder mb = (MenuBuilder) menu;
+            mb.setOptionalIconsVisible(true);
+        }
+        getMenuInflater().inflate(R.menu.solving_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemID = item.getItemId();
-        if (itemID == R.id.opExit) {
-            // TODO: FINALIZE ALL RESOURCES HERE ALSO.
-            finishAffinity();
+        SudokuBoardView sbv = findViewById(R.id.solvingSBV);
+
+        if (itemID == R.id.opSolve) {
+            return true;
+        } else if (itemID == R.id.opClear) {
+            sbv.clearAllFilled();
+            return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

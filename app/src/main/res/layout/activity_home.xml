@@ -50,18 +50,18 @@
         android:layout_marginBottom="16dp"
         android:drawableLeft="@drawable/ic_camera_bticon"
         android:text="Image mode"
-        app:layout_constraintBottom_toTopOf="@+id/btManualMode"
+        app:layout_constraintBottom_toTopOf="@+id/btRandomMode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btManualMode"
+        android:id="@+id/btRandomMode"
         style="@style/BasicButtonStyle"
-        android:layout_width="225dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="120dp"
-        android:drawableLeft="@drawable/ic_manual_bticon"
-        android:text="Manual mode"
+        android:drawableLeft="@drawable/ic_dice_bt_icon"
+        android:text="Random mode"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
