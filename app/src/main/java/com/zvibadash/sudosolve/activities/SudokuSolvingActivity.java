@@ -50,6 +50,7 @@ public class SudokuSolvingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sudoku_solving);
 
+        // Set all view IDs
         SudokuBoardView sbv = findViewById(R.id.solvingSBV);
         Button[] digitControls = {
                 findViewById(R.id.solvingBtSudokuKeyboardOne),
@@ -68,8 +69,10 @@ public class SudokuSolvingActivity extends AppCompatActivity {
         ImageButton btnRefresh = findViewById(R.id.solvingBtRefresh);
         ImageButton btnSolve = findViewById(R.id.solvingBtSolve);
 
+        // Get the board state, as given by the referring activity
         board = getIntent().getExtras().getString("board", "000000000000000000000000000000000000000000000000000000000000000000000000000000000");
 
+        // Set the onClick methods for the digit buttons
         for (int i = 0; i < digitControls.length; ++i) {
             int finalI = i;
             digitControls[i].setOnClickListener(view -> {
@@ -78,18 +81,19 @@ public class SudokuSolvingActivity extends AppCompatActivity {
             });
         }
 
-        btnRefresh.setOnClickListener(v -> {
-            sbv.setBoardFromString(board);
-//            cachedSolve[0] = null;
-        });
+        // Set the onClick for the refresh button
+        btnRefresh.setOnClickListener(v -> sbv.setBoardFromString(board));
 
+        // Set the onClick for the eraser button
         btnErase.setOnClickListener(v -> {
             sbv.clearDigitInSelected();
             sbv.unselect();
         });
 
+        // Set the onClick for the magic button
         btnMagic.setOnClickListener(v -> sbv.magicFillSelected(this, cachedSolve));
 
+        // Set the onClick for the solve button
         btnSolve.setOnClickListener(v -> {
             for (int i = 0; i < sbv.board.length; ++i) {
                 for (int j = 0; j < sbv.board[0].length; ++j) {
@@ -101,6 +105,7 @@ public class SudokuSolvingActivity extends AppCompatActivity {
             sbv.unselect();
         });
 
+        // Finally, set the board state to what was given from the referring activity
         new CountDownTimer(50, 10) {
             @Override
             public void onTick(long l) {

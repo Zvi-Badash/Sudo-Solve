@@ -15,7 +15,6 @@ public class APIClient {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                     .create(APIInterface.class);
-
         return client;
     }
 }

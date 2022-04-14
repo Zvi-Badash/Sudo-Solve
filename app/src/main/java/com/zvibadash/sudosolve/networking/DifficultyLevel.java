@@ -1,10 +1,10 @@
 package com.zvibadash.sudosolve.networking;
 
 public enum DifficultyLevel {
-    EASY("EASY"),
-    MEDIUM("MEDIUM"),
-    HARD("HARD"),
-    INSANE("INSANE");
+    EASY("Easy"),
+    MEDIUM("Medium"),
+    HARD("Hard"),
+    INSANE("Insane");
 
     private final String level;
 
