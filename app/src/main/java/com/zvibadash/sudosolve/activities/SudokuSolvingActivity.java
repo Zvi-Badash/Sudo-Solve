@@ -35,11 +35,16 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.zvibadash.sudosolve.R;
 import com.zvibadash.sudosolve.sudokuboard.SudokuBoardView;
+import com.zvibadash.sudosolve.sudokuboard.SudokuCoordinatesHolder;
+import com.zvibadash.sudosolve.sudokuboard.SudokuLogic;
+
+import java.util.HashSet;
 
 public class SudokuSolvingActivity extends AppCompatActivity {
     final public StringBuilder[] cachedSolve = {null};
@@ -68,6 +73,8 @@ public class SudokuSolvingActivity extends AppCompatActivity {
         ImageButton btnMagic = findViewById(R.id.solvingBtMagic);
         ImageButton btnRefresh = findViewById(R.id.solvingBtRefresh);
         ImageButton btnSolve = findViewById(R.id.solvingBtSolve);
+        ImageButton btnErrors = findViewById(R.id.solvingBtErrors);
+
 
         // Get the board state, as given by the referring activity
         board = getIntent().getExtras().getString("board", "000000000000000000000000000000000000000000000000000000000000000000000000000000000");
@@ -105,11 +112,32 @@ public class SudokuSolvingActivity extends AppCompatActivity {
             sbv.unselect();
         });
 
+        // Set the onClick for the error button
+        btnErrors.setOnClickListener(v -> {
+            sbv.unselect();
+            sbv.shouldDrawErrors = true;
+
+            // Add all currently erroneous cells to the inner array of errors.
+            sbv.erroneousCells.addAll(SudokuLogic.getErroneousCells(sbv.board));
+            sbv.invalidate();
+
+            new CountDownTimer(1000, 100) {
+                @Override
+                public void onTick(long l) {}
+
+                @Override
+                public void onFinish() {
+                    sbv.erroneousCells = new HashSet<>();
+                    sbv.shouldDrawErrors = false;
+                    sbv.invalidate();
+                }
+            }.start();
+        });
+
         // Finally, set the board state to what was given from the referring activity
         new CountDownTimer(50, 10) {
             @Override
-            public void onTick(long l) {
-            }
+            public void onTick(long l) {}
 
             @Override
             public void onFinish() {

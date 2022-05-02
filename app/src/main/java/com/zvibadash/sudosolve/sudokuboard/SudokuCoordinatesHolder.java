@@ -24,36 +24,35 @@
 
 package com.zvibadash.sudosolve.sudokuboard;
 
-import android.widget.Button;
+public class SudokuCoordinatesHolder {
+    int row;
+    int col;
 
-public class SudokuBoardEditor {
-    SudokuBoardView sbv;
-    Button[] digitControls;
-    Button btnMagic, btnErase;
-    Boolean isSolve;
-    int[][] solved;
+    public SudokuCoordinatesHolder(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
 
-    public SudokuBoardEditor(SudokuBoardView sbv, Button[] digitControls, Button btnMagic, Button btnErase, Boolean isSolve, int[][] solved) {
-        this.sbv = sbv;
-        this.digitControls = digitControls;
-        this.btnMagic = btnMagic;
-        this.btnErase = btnErase;
-        this.isSolve = isSolve;
-        this.solved = solved;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
 
-        // Set the onClick for each button
-        btnErase.setOnClickListener(v -> {
-            sbv.clearDigitInSelected();
-        });
+        SudokuCoordinatesHolder other = (SudokuCoordinatesHolder) obj;
+        return this.col == other.col && this.row == other.row;
+    }
 
-        btnMagic.setOnClickListener(v -> {
-            if(isSolve)
-                sbv.setDigitInSelected(solved[sbv.selectedRow - 1][sbv.selectedColumn - 1]);
-        });
+    @Override
+    public int hashCode() {
+        final int prime = 173;
+        int result = 1;
+        result = prime * result + col;
+        result = prime * result + row;
 
-        for (int i = 0; i < digitControls.length; ++i) {
-            int finalI = i;
-            digitControls[i].setOnClickListener(view -> sbv.setDigitInSelected(finalI + 1));
-        }
+        return result;
     }
 }

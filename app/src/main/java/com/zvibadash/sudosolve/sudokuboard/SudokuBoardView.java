@@ -48,6 +48,8 @@ import com.zvibadash.sudosolve.networking.APIInterface;
 import com.zvibadash.sudosolve.networking.RequestSolve;
 import com.zvibadash.sudosolve.networking.ResponseSolved;
 
+import java.util.HashSet;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,6 +62,8 @@ public class SudokuBoardView extends View {
     private Paint linePaint;
     private Paint letterPaint;
     private Paint highlightedPaint;
+    public Boolean shouldDrawErrors = false;
+    public HashSet<SudokuCoordinatesHolder> erroneousCells = new HashSet<>();
 
     public int selectedRow = -1, selectedColumn = -1;
     public final SudokuDigit[][] board = new SudokuDigit[9][9];
@@ -181,6 +185,16 @@ public class SudokuBoardView extends View {
     }
 
     private void _drawSelected(Canvas canvas) {
+        // Highlight the erroneous cells
+        if (shouldDrawErrors) {
+            // Change the color of the highlightedPaint
+            highlightedPaint.setColor(errorColor);
+
+            // Highlight the current cell
+            for (SudokuCoordinatesHolder cell : erroneousCells)
+                _highlightCell(canvas, cell.row, cell.col);
+        }
+
         // Change the color of the highlightedPaint
         highlightedPaint.setColor(highlightedColor);
 
@@ -190,8 +204,6 @@ public class SudokuBoardView extends View {
         // get the left up indices of the box
         int left = 3 * (int) Math.floor(selectedColumn / 3F - 0.1) + 1;
         int up = 3 * (int) Math.floor(selectedRow / 3F - 0.1) + 1;
-
-        Log.i("SUDOKU_CONTROLS", "BOX: (" + left + ", " + up + ")");
 
         // Change the color of the highlightedPaint
         highlightedPaint.setColor(lessHighlightedColor);
@@ -402,12 +414,10 @@ public class SudokuBoardView extends View {
         if (x < 0 || y < 0 || x > width - 35 || y > height - 35)
             return false;
 
-        selectedRow = (int) Math.ceil(y / cellSize);
+        selectedRow    = (int) Math.ceil(y / cellSize);
         selectedColumn = (int) Math.ceil(x / cellSize);
 
         invalidate();
-        Log.i("SUDOKU_CONTROLS", "(" + selectedColumn + ", " + selectedRow + ")");
-
         return true;
     }
 }
