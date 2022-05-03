@@ -25,6 +25,7 @@
 package com.zvibadash.sudosolve;
 
 import com.zvibadash.sudosolve.networking.DifficultyLevel;
+import com.zvibadash.sudosolve.sudokuboard.SudokuCoordinatesHolder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -100,5 +101,137 @@ public class Globals {
         OFFLINE_PUZZLES.put(DifficultyLevel.MEDIUM, MEDIUM_LIST);
         OFFLINE_PUZZLES.put(DifficultyLevel.HARD, HARD_LIST);
         OFFLINE_PUZZLES.put(DifficultyLevel.INSANE, INSANE_LIST);
+    }
+
+    public final static ArrayList<ArrayList<SudokuCoordinatesHolder>> ROWS;
+    public final static ArrayList<ArrayList<SudokuCoordinatesHolder>> COLS;
+    public final static ArrayList<ArrayList<SudokuCoordinatesHolder>> BOXES;
+    public final static ArrayList<ArrayList<ArrayList<SudokuCoordinatesHolder>>> NEIGHBORHOOD_TYPES;
+    static {
+        ROWS = new ArrayList<>();
+        COLS = new ArrayList<>();
+        BOXES = new ArrayList<>();
+        NEIGHBORHOOD_TYPES = new ArrayList<>();
+
+        for (int i = 0; i < 9; ++i) {
+            ROWS.add(new ArrayList<>());
+            COLS.add(new ArrayList<>());
+            BOXES.add(new ArrayList<>());
+        }
+
+        for (int i = 1; i <= 9; ++i)
+            for (int j = 1; j <= 9; ++j)
+                ROWS.get(i - 1).add(new SudokuCoordinatesHolder(i, j));
+
+        for (int i = 1; i <= 9; ++i)
+            for (int j = 1; j <= 9; ++j)
+                COLS.get(i - 1).add(new SudokuCoordinatesHolder(j, i));
+
+        // First box at (1, 1)
+        BOXES.get(0).add(new SudokuCoordinatesHolder(1, 1));
+        BOXES.get(0).add(new SudokuCoordinatesHolder(1, 2));
+        BOXES.get(0).add(new SudokuCoordinatesHolder(1, 3));
+        BOXES.get(0).add(new SudokuCoordinatesHolder(2, 1));
+        BOXES.get(0).add(new SudokuCoordinatesHolder(2, 2));
+        BOXES.get(0).add(new SudokuCoordinatesHolder(2, 3));
+        BOXES.get(0).add(new SudokuCoordinatesHolder(3, 1));
+        BOXES.get(0).add(new SudokuCoordinatesHolder(3, 2));
+        BOXES.get(0).add(new SudokuCoordinatesHolder(3, 3));
+
+        // Second box at (1, 4)
+        BOXES.get(1).add(new SudokuCoordinatesHolder(1, 4));
+        BOXES.get(1).add(new SudokuCoordinatesHolder(1, 5));
+        BOXES.get(1).add(new SudokuCoordinatesHolder(1, 6));
+        BOXES.get(1).add(new SudokuCoordinatesHolder(2, 4));
+        BOXES.get(1).add(new SudokuCoordinatesHolder(2, 5));
+        BOXES.get(1).add(new SudokuCoordinatesHolder(2, 6));
+        BOXES.get(1).add(new SudokuCoordinatesHolder(3, 4));
+        BOXES.get(1).add(new SudokuCoordinatesHolder(3, 5));
+        BOXES.get(1).add(new SudokuCoordinatesHolder(3, 6));
+
+        // Third box at (1, 7)
+        BOXES.get(2).add(new SudokuCoordinatesHolder(1, 7));
+        BOXES.get(2).add(new SudokuCoordinatesHolder(1, 8));
+        BOXES.get(2).add(new SudokuCoordinatesHolder(1, 9));
+        BOXES.get(2).add(new SudokuCoordinatesHolder(2, 7));
+        BOXES.get(2).add(new SudokuCoordinatesHolder(2, 8));
+        BOXES.get(2).add(new SudokuCoordinatesHolder(2, 9));
+        BOXES.get(2).add(new SudokuCoordinatesHolder(3, 7));
+        BOXES.get(2).add(new SudokuCoordinatesHolder(3, 8));
+        BOXES.get(2).add(new SudokuCoordinatesHolder(3, 9));
+
+
+
+        // Fourth box at (4, 1)
+        BOXES.get(3).add(new SudokuCoordinatesHolder(4, 1));
+        BOXES.get(3).add(new SudokuCoordinatesHolder(4, 2));
+        BOXES.get(3).add(new SudokuCoordinatesHolder(4, 3));
+        BOXES.get(3).add(new SudokuCoordinatesHolder(5, 1));
+        BOXES.get(3).add(new SudokuCoordinatesHolder(5, 2));
+        BOXES.get(3).add(new SudokuCoordinatesHolder(5, 3));
+        BOXES.get(3).add(new SudokuCoordinatesHolder(6, 1));
+        BOXES.get(3).add(new SudokuCoordinatesHolder(6, 2));
+        BOXES.get(3).add(new SudokuCoordinatesHolder(6, 3));
+
+        // Fifth box at (4, 4)
+        BOXES.get(4).add(new SudokuCoordinatesHolder(4, 4));
+        BOXES.get(4).add(new SudokuCoordinatesHolder(4, 5));
+        BOXES.get(4).add(new SudokuCoordinatesHolder(4, 6));
+        BOXES.get(4).add(new SudokuCoordinatesHolder(5, 4));
+        BOXES.get(4).add(new SudokuCoordinatesHolder(5, 5));
+        BOXES.get(4).add(new SudokuCoordinatesHolder(5, 6));
+        BOXES.get(4).add(new SudokuCoordinatesHolder(6, 4));
+        BOXES.get(4).add(new SudokuCoordinatesHolder(6, 5));
+        BOXES.get(4).add(new SudokuCoordinatesHolder(6, 6));
+
+        // Sixth box at (4, 7)
+        BOXES.get(5).add(new SudokuCoordinatesHolder(4, 7));
+        BOXES.get(5).add(new SudokuCoordinatesHolder(4, 8));
+        BOXES.get(5).add(new SudokuCoordinatesHolder(4, 9));
+        BOXES.get(5).add(new SudokuCoordinatesHolder(5, 7));
+        BOXES.get(5).add(new SudokuCoordinatesHolder(5, 8));
+        BOXES.get(5).add(new SudokuCoordinatesHolder(5, 9));
+        BOXES.get(5).add(new SudokuCoordinatesHolder(6, 7));
+        BOXES.get(5).add(new SudokuCoordinatesHolder(6, 8));
+        BOXES.get(5).add(new SudokuCoordinatesHolder(6, 9));
+
+
+
+        // Seventh box at (7, 1)
+        BOXES.get(6).add(new SudokuCoordinatesHolder(7, 1));
+        BOXES.get(6).add(new SudokuCoordinatesHolder(7, 2));
+        BOXES.get(6).add(new SudokuCoordinatesHolder(7, 3));
+        BOXES.get(6).add(new SudokuCoordinatesHolder(8, 1));
+        BOXES.get(6).add(new SudokuCoordinatesHolder(8, 2));
+        BOXES.get(6).add(new SudokuCoordinatesHolder(8, 3));
+        BOXES.get(6).add(new SudokuCoordinatesHolder(9, 1));
+        BOXES.get(6).add(new SudokuCoordinatesHolder(9, 2));
+        BOXES.get(6).add(new SudokuCoordinatesHolder(9, 3));
+
+        // Eighth box at (7, 4)
+        BOXES.get(7).add(new SudokuCoordinatesHolder(7, 4));
+        BOXES.get(7).add(new SudokuCoordinatesHolder(7, 5));
+        BOXES.get(7).add(new SudokuCoordinatesHolder(7, 6));
+        BOXES.get(7).add(new SudokuCoordinatesHolder(8, 4));
+        BOXES.get(7).add(new SudokuCoordinatesHolder(8, 5));
+        BOXES.get(7).add(new SudokuCoordinatesHolder(8, 6));
+        BOXES.get(7).add(new SudokuCoordinatesHolder(9, 4));
+        BOXES.get(7).add(new SudokuCoordinatesHolder(9, 5));
+        BOXES.get(7).add(new SudokuCoordinatesHolder(9, 6));
+
+        // Ninth box at (7, 7)
+        BOXES.get(8).add(new SudokuCoordinatesHolder(7, 7));
+        BOXES.get(8).add(new SudokuCoordinatesHolder(7, 8));
+        BOXES.get(8).add(new SudokuCoordinatesHolder(7, 9));
+        BOXES.get(8).add(new SudokuCoordinatesHolder(8, 7));
+        BOXES.get(8).add(new SudokuCoordinatesHolder(8, 8));
+        BOXES.get(8).add(new SudokuCoordinatesHolder(8, 9));
+        BOXES.get(8).add(new SudokuCoordinatesHolder(9, 7));
+        BOXES.get(8).add(new SudokuCoordinatesHolder(9, 8));
+        BOXES.get(8).add(new SudokuCoordinatesHolder(9, 9));
+
+        NEIGHBORHOOD_TYPES.add(ROWS);
+        NEIGHBORHOOD_TYPES.add(COLS);
+        NEIGHBORHOOD_TYPES.add(BOXES);
     }
 }

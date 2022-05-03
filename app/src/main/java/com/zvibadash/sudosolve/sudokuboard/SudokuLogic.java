@@ -24,15 +24,28 @@
 
 package com.zvibadash.sudosolve.sudokuboard;
 
+import android.util.Log;
+
+import com.zvibadash.sudosolve.Globals;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 
 public abstract class SudokuLogic {
     public static HashSet<SudokuCoordinatesHolder> getErroneousCells(SudokuDigit[][] board) {
-        HashSet<SudokuCoordinatesHolder> cells = new HashSet<>();
-        // TODO: Figure out what cells are duplicates, add them to _cells_.
-//        for (int row = 1; row <= board.length; ++row) {
-//
-//        }
-        return cells;
+        HashSet<SudokuCoordinatesHolder> erroneousCells = new HashSet<>();
+
+        for (ArrayList<ArrayList<SudokuCoordinatesHolder>> neighborhoodType : Globals.NEIGHBORHOOD_TYPES) {
+            for (ArrayList<SudokuCoordinatesHolder> neighborhood : neighborhoodType) {
+                for (SudokuCoordinatesHolder cord : neighborhood) {
+                    SudokuDigit digit = board[cord.row - 1][cord.col - 1];
+                    if (digit.getType() == SudokuDigitType.FILLED && digit.getDigit() > 0 && Collections.frequency(neighborhood.stream().map(c -> board[c.row - 1][c.col - 1].getDigit()).collect(Collectors.toList()), digit.getDigit()) > 1)
+                        erroneousCells.add(cord);
+                }
+            }
+        }
+        return erroneousCells;
     }
 }

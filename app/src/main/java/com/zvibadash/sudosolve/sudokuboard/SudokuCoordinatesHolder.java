@@ -24,6 +24,8 @@
 
 package com.zvibadash.sudosolve.sudokuboard;
 
+import androidx.annotation.NonNull;
+
 public class SudokuCoordinatesHolder {
     int row;
     int col;
@@ -54,5 +56,11 @@ public class SudokuCoordinatesHolder {
         result = prime * result + row;
 
         return result;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "(" + this.row + ", " + this.col + ")";
     }
 }
