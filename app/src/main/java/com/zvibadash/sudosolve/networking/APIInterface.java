@@ -10,7 +10,7 @@ import retrofit2.http.Query;
 
 public interface APIInterface {
     String API_KEY = "QPETl3iMdkIpejgC5ElMDfzuZez66fPzDnMoZ7tAGKxFdwXgcsKNqSidrNa0r4BdpoXJtHYL8piCQAqHgXBElpqgvtO7pWXzEsTE";
-    String BASE_URL = "http://10.76.166.87:5000/";
+    String BASE_URL = "http://192.168.1.21:5000/";
 
     @GET("/check_connection")
     @Headers({
@@ -32,4 +32,11 @@ public interface APIInterface {
             "Auth: " + API_KEY
     })
     Call<ResponseSolved> solve(@Body RequestSolve board);
+
+    @POST("identify")
+    @Headers({
+            "Content-Type: application/json",
+            "Auth: " + API_KEY
+    })
+    Call<ResponseIdentify> identify(@Body RequestIdentify board);
 }

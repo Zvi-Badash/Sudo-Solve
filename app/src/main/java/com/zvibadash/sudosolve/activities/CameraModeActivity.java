@@ -24,9 +24,7 @@
 
 package com.zvibadash.sudosolve.activities;
 
-import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
-
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -44,7 +42,16 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
+
+import com.zvibadash.sudosolve.Globals;
 import com.zvibadash.sudosolve.R;
+import com.zvibadash.sudosolve.networking.APIClient;
+import com.zvibadash.sudosolve.networking.APIInterface;
+import com.zvibadash.sudosolve.networking.RequestIdentify;
+import com.zvibadash.sudosolve.networking.ResponseIdentify;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -54,13 +61,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CameraModeActivity extends MainMenuTemplateActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     static final String IMG_SUFFIX         = ".jpg";
-    static final String TXT_SUFFIX         = ".txt";
     static final String RAW_IMAGE_PREFIX   = "SUDOSOLVE_RAW_";
-    static final String FINAL_IMAGE_PREFIX = "SUDOSOLVE_FINAL_";
     static final String DATE_PATTERN       = "yyyy-MM-dd HH:mm:ss.SSS";
 
     static final int QUALITY = 25; // Trial & error, seems like a good value
@@ -80,8 +89,38 @@ public class CameraModeActivity extends MainMenuTemplateActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         Log.d("CAMERA_ACTIVITY", currentPhotoPath);
-        Bitmap res = setImageFromPath(currentPhotoPath);
-        createTextB64File(res);
+        Bitmap bitmapBoard = BitmapFactory.decodeFile(currentPhotoPath);
+        String encodedBoard = getBase64FromImage(bitmapBoard);
+
+        if (Globals.HAS_CONNECTION_TO_SERVER) {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setCancelable(false);
+            progressDialog.setMessage("Identifying...");
+            progressDialog.show();
+
+            Log.d("mKNKJHJVGHCF", "HERE");
+            APIInterface client = APIClient.getClient();
+            client.identify(new RequestIdentify(encodedBoard)).enqueue(new Callback<ResponseIdentify>() {
+                @Override
+                public void onResponse(@NonNull Call<ResponseIdentify> call, @NonNull Response<ResponseIdentify> response) {
+                    progressDialog.dismiss();
+                    if (response.isSuccessful()) {
+                        ResponseIdentify responseFromAPI = response.body();
+                        assert responseFromAPI != null;
+
+                        startActivity(new Intent(CameraModeActivity.this, SudokuSolvingActivity.class)
+                                .putExtra("board", responseFromAPI.getBoard()));
+                    } else
+                        Log.e("CONNECTION", "ERROR CONNECTING.");
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<ResponseIdentify> call, @NonNull Throwable t) {
+                    progressDialog.dismiss();
+                    Log.e("CONNECTION", t.getMessage());
+                }
+            });
+        }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -164,34 +203,6 @@ public class CameraModeActivity extends MainMenuTemplateActivity {
         grayed.compress(Bitmap.CompressFormat.JPEG, QUALITY, baos);
 
         // Return the byte array encoded in base64.
-        return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
-    }
-
-    private Bitmap setImageFromPath(String path) {
-        Bitmap res = BitmapFactory.decodeFile(path);
-        ImageView ivTest = findViewById(R.id.ivTest);
-        ivTest.setImageBitmap(res);
-
-        return res;
-    }
-
-    private String createTextB64File(Bitmap bp) {
-        String currentEncodedName = "";
-        try {
-            String timeStamp = new SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).format(new Date());
-            currentEncodedName = FINAL_IMAGE_PREFIX + timeStamp + "_" + TXT_SUFFIX;
-
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getApplicationContext()
-                    .openFileOutput(currentEncodedName, Context.MODE_PRIVATE));
-
-            outputStreamWriter.write(getBase64FromImage(bp));
-            outputStreamWriter.close();
-        }
-
-        catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-
-        return currentEncodedName;
+        return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT | Base64.NO_WRAP);
     }
 }
