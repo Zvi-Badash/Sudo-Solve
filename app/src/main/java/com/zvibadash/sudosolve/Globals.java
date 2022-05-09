@@ -28,6 +28,7 @@ import android.util.Log;
 
 import com.zvibadash.sudosolve.networking.DifficultyLevel;
 import com.zvibadash.sudosolve.sudokuboard.SudokuCoordinatesHolder;
+import com.zvibadash.sudosolve.sudokuboard.SudokuDigit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +36,7 @@ import java.util.HashMap;
 public class Globals {
     public static Session CURRENT_SESSION;
     public static boolean HAS_CONNECTION_TO_SERVER = false;
+    public static SudokuDigit[][] CURRENT_CELEBRATE_BOARD = null;
 
     private final static ArrayList<String> EASY_LIST;
     static { // Came from: https://stackoverflow.com/questions/33775273/how-to-declare-hashmap-in-global-and-add-values-into-it-only-for-the-first-time

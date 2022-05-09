@@ -47,4 +47,9 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/textGray</item>
     </style>
+
+    <style name="AppDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>

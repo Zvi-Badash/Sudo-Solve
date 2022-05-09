@@ -31,24 +31,74 @@
 
 package com.zvibadash.sudosolve.activities;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Parcelable;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.zvibadash.sudosolve.Globals;
 import com.zvibadash.sudosolve.R;
 import com.zvibadash.sudosolve.sudokuboard.SudokuBoardView;
-import com.zvibadash.sudosolve.sudokuboard.SudokuCoordinatesHolder;
+import com.zvibadash.sudosolve.sudokuboard.SudokuDigit;
 import com.zvibadash.sudosolve.sudokuboard.SudokuLogic;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.HashSet;
 
 public class SudokuSolvingActivity extends AppCompatActivity {
     final public StringBuilder[] cachedSolve = {null};
     String board;
+    Instant startTime = Instant.now();
+    boolean hasUsedSolved = false;
+    int timesMagicUsed = 0;
+
+    private void celebrate(SudokuBoardView sbv) {
+        Toast.makeText(SudokuSolvingActivity.this, "Hurray!", Toast.LENGTH_SHORT).show();
+        sbv.celebrate();
+        String stringDuration = Duration.between(startTime, Instant.now()).toString()
+                .substring(2)
+                .replaceAll("(\\d[HMS])(?!$)", "$1 ")
+                .toLowerCase()
+                .replaceAll("s", " Seconds")
+                .replaceAll("m", " Minutes");
+
+        new CountDownTimer(3000, 100) {
+            @Override
+            public void onTick(long l) {}
+
+            @Override
+            public void onFinish() {
+                Globals.CURRENT_CELEBRATE_BOARD = sbv.board;
+                startActivity(
+                        new Intent(SudokuSolvingActivity.this, CelebrateActivity.class)
+                        .putExtra("duration", stringDuration)
+                        .putExtra("timesMagicUsed", timesMagicUsed)
+                );
+            }
+        }.start();
+    }
+
+    private void checkSolved(SudokuBoardView sbv) {
+        for (SudokuDigit[] row : sbv.board)
+            for (SudokuDigit cell : row)
+                if (cell.getDigit() <= 0)
+                    return;
+
+        if (!SudokuLogic.getErroneousCells(sbv.board).isEmpty())
+            return;
+
+//        if (!hasUsedSolved)
+//            return;
+
+        celebrate(sbv);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,11 +135,27 @@ public class SudokuSolvingActivity extends AppCompatActivity {
             digitControls[i].setOnClickListener(view -> {
                 sbv.setDigitInSelected(finalI + 1);
                 sbv.unselect();
+                checkSolved(sbv);
             });
         }
 
         // Set the onClick for the refresh button
-        btnRefresh.setOnClickListener(v -> sbv.setBoardFromString(board));
+        btnRefresh.setOnClickListener(v -> {
+            AlertDialog adRefresh = new AlertDialog.Builder(this).create();
+            adRefresh.setTitle("Refresh Sudoku");
+            adRefresh.setMessage("Are you sure you want to restart?\nAll progress will be lost for this Sudoku.");
+            adRefresh.setButton(AlertDialog.BUTTON_POSITIVE, "Refresh",
+                    (dialog, which) -> {
+                        sbv.setBoardFromString(board);
+                        timesMagicUsed = 0;
+                        hasUsedSolved = false;
+                        startTime = Instant.now();
+                        dialog.dismiss();
+                    });
+            adRefresh.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
+                    (dialog, which) -> dialog.dismiss());
+            adRefresh.show();
+        });
 
         // Set the onClick for the eraser button
         btnErase.setOnClickListener(v -> {
@@ -98,7 +164,12 @@ public class SudokuSolvingActivity extends AppCompatActivity {
         });
 
         // Set the onClick for the magic button
-        btnMagic.setOnClickListener(v -> sbv.magicFillSelected(this, cachedSolve));
+        btnMagic.setOnClickListener(v -> {
+            ++timesMagicUsed;
+            sbv.magicFillSelected(this, cachedSolve);
+            sbv.unselect();
+            checkSolved(sbv);
+        });
 
         // Set the onClick for the solve button
         btnSolve.setOnClickListener(v -> {
@@ -121,7 +192,7 @@ public class SudokuSolvingActivity extends AppCompatActivity {
             sbv.erroneousCells.addAll(SudokuLogic.getErroneousCells(sbv.board));
             sbv.invalidate();
 
-            new CountDownTimer(1000, 100) {
+            new CountDownTimer(1500, 100) {
                 @Override
                 public void onTick(long l) {}
 

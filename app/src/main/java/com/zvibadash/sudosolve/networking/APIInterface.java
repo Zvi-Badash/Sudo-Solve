@@ -10,7 +10,7 @@ import retrofit2.http.Query;
 
 public interface APIInterface {
     String API_KEY = "QPETl3iMdkIpejgC5ElMDfzuZez66fPzDnMoZ7tAGKxFdwXgcsKNqSidrNa0r4BdpoXJtHYL8piCQAqHgXBElpqgvtO7pWXzEsTE";
-    String BASE_URL = "http://192.168.1.21:5000/";
+    String BASE_URL = "http://192.168.1.31:5000/";
 
     @GET("/check_connection")
     @Headers({
@@ -24,7 +24,7 @@ public interface APIInterface {
             "Content-Type: application/json",
             "Auth: " + API_KEY
     })
-    Call<ResponseGenerated> getSudoku(@Query("level") DifficultyLevel level);
+    Call<ResponseGenerated> generate(@Query("level") DifficultyLevel level);
 
     @POST("solve")
     @Headers({

@@ -58,11 +58,13 @@ public class SudokuBoardView extends View {
     private final boolean isEditable;
     private int height, width;
     private int cellSize;
+    private int textSize;
     @ColorInt private final int filledColor, hintColor, errorColor, lineColor, highlightedColor, lessHighlightedColor;
     private Paint linePaint;
     private Paint letterPaint;
     private Paint highlightedPaint;
     public Boolean shouldDrawErrors = false;
+    public Boolean shouldCelebrate = false;
     public HashSet<SudokuCoordinatesHolder> erroneousCells = new HashSet<>();
 
     public int selectedRow = -1, selectedColumn = -1;
@@ -83,6 +85,7 @@ public class SudokuBoardView extends View {
             lineColor = a.getColor(R.styleable.SudokuBoardView_lineColor, Color.BLACK);
             highlightedColor = a.getColor(R.styleable.SudokuBoardView_highlightedColor, Color.parseColor("#AA6bd6d6"));
             lessHighlightedColor = ColorUtils.setAlphaComponent(highlightedColor, (int) (Color.alpha(highlightedColor) * 0.35F));
+            textSize = a.getInt(R.styleable.SudokuBoardView_cellTextSize, 90);
         } finally {
             a.recycle();
         }
@@ -100,7 +103,7 @@ public class SudokuBoardView extends View {
         letterPaint.setStyle(Paint.Style.FILL);
         letterPaint.setTextAlign(Paint.Align.CENTER);
         letterPaint.setTypeface(getResources().getFont(R.font.varela_round_regular));
-        letterPaint.setTextSize(90);
+        letterPaint.setTextSize(textSize);
 
         highlightedPaint.setColor(highlightedColor);
         highlightedPaint.setStyle(Paint.Style.FILL);
@@ -166,8 +169,6 @@ public class SudokuBoardView extends View {
                     letterPaint.setColor(_getColorFromType(currDigit.getType()));
                     canvas.drawText(
                             Integer.toString(currDigit.getDigit()),
-                            // TODO: FIGURE THIS OUT
-                            // The text alignment solution is rather ugly, fix using Paint class methods.
                             (j + 0.5f) * cellSize, (i + 0.75f) * cellSize,
                             letterPaint
                     );
@@ -193,6 +194,17 @@ public class SudokuBoardView extends View {
             // Highlight the current cell
             for (SudokuCoordinatesHolder cell : erroneousCells)
                 _highlightCell(canvas, cell.row, cell.col);
+        }
+
+        if (shouldCelebrate) {
+            // Change the color of the highlightedPaint
+            highlightedPaint.setColor(highlightedColor);
+
+            // Highlight the current cell
+            for (int i = 1; i <= board.length; ++i)
+                for (int j = 1; j <= board[0].length; ++j)
+                    if (board[i - 1][j - 1].getType() == SudokuDigitType.FILLED)
+                        _highlightCell(canvas, i, j);
         }
 
         // Change the color of the highlightedPaint
@@ -290,6 +302,15 @@ public class SudokuBoardView extends View {
         unselect();
     }
 
+    public void setBoardFromArray(SudokuDigit[][] newBoard) {
+        for (int i = 0; i < board.length; ++i)
+            for (int j = 0; j < board[0].length; ++j) {
+                board[i][j].setType(newBoard[i][j].getType());
+                board[i][j].setDigit(newBoard[i][j].getDigit());
+            }
+        unselect();
+    }
+
     public void clearAllFilled() {
         for (int i = 0; i < board.length; ++i) {
             for (int j = 0; j < board[0].length; ++j) {
@@ -377,6 +398,11 @@ public class SudokuBoardView extends View {
                 });
             }
         }
+    }
+
+    public void celebrate() {
+        this.shouldCelebrate = true;
+        invalidate();
     }
 
     @Override

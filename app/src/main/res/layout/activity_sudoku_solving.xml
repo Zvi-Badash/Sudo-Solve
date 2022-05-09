@@ -38,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07999998">
+        app:layout_constraintVertical_bias="0.08">
 
         <com.zvibadash.sudosolve.sudokuboard.SudokuBoardView
             android:id="@+id/solvingSBV"
@@ -46,6 +46,9 @@
             android:layout_height="match_parent"
             app:highlightedColor="#BB8BC34A"
             app:errorColor="#40FF0000"
+            app:filledColor="#BF0000B4"
+            app:hintColor="#CC000000"
+            app:cellTextSize="85"
             app:isEditable="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

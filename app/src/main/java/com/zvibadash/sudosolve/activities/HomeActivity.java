@@ -111,7 +111,7 @@ public class HomeActivity extends MainMenuTemplateActivity {
         progressDialog.show();
 
         APIInterface client = APIClient.getClient();
-        client.getSudoku(difficulty).enqueue(new Callback<ResponseGenerated>() {
+        client.generate(difficulty).enqueue(new Callback<ResponseGenerated>() {
             @Override
             public void onResponse(@NonNull Call<ResponseGenerated> call, @NonNull Response<ResponseGenerated> response) {
                 progressDialog.dismiss();
