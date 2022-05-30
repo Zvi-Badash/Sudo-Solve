@@ -69,7 +69,7 @@ public class CelebrateActivity extends AppCompatActivity {
 
         btShare.setOnClickListener(v -> shareResults(timeDuration, timesMagicUsed));
 
-        btCancel.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
+        btCancel.setOnClickListener(v -> startActivity(new Intent(this, HomeActivity.class)));
 
         // Finally, set the board state to what was given from the referring activity
         new CountDownTimer(50, 10) {
@@ -91,8 +91,6 @@ public class CelebrateActivity extends AppCompatActivity {
         String message = "I have solved a Sudoku in SudoSolve!\n" +
                 "It took " + timeDuration + " and I used " + timesMagicUsed + " \"Magic hints\"!";
         share.putExtra(Intent.EXTRA_TEXT, message);
-        try {
-            startActivity(share);
-        } catch (android.content.ActivityNotFoundException ignored) {}
+        startActivity(share);
     }
 }

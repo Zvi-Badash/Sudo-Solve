@@ -37,7 +37,7 @@ import android.widget.Toast;
 import com.zvibadash.sudosolve.R;
 import com.zvibadash.sudosolve.database.SSDBContract;
 import com.zvibadash.sudosolve.database.SSDBHelper;
-import com.zvibadash.sudosolve.SessionHandler;
+import com.zvibadash.sudosolve.database.SessionHandler;
 
 import java.util.regex.Pattern;
 
@@ -62,7 +62,7 @@ public class RegisterActivity extends LoginMenuTemplateActivity {
         Button btRegister = findViewById(R.id.btRegister_register_activity);
         btRegister.setOnClickListener(view -> {
             EditText etUsername = findViewById(R.id.etUsername_register_activity);
-            String username = etUsername.getText().toString();
+            String username = etUsername.getText().toString().trim().replaceAll("\\s","_");
             Log.i(TAG, "given username is " + username);
 
             switch (isValidUsername(username)) {

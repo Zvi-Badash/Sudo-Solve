@@ -31,7 +31,7 @@ import android.widget.TextView;
 
 import com.zvibadash.sudosolve.Globals;
 import com.zvibadash.sudosolve.R;
-import com.zvibadash.sudosolve.SessionHandler;
+import com.zvibadash.sudosolve.database.SessionHandler;
 
 public class TestingSessionsActivity extends MainMenuTemplateActivity {
     TextView tvUserPrompt;

@@ -26,6 +26,7 @@ package com.zvibadash.sudosolve;
 
 import android.util.Log;
 
+import com.zvibadash.sudosolve.database.Session;
 import com.zvibadash.sudosolve.networking.DifficultyLevel;
 import com.zvibadash.sudosolve.sudokuboard.SudokuCoordinatesHolder;
 import com.zvibadash.sudosolve.sudokuboard.SudokuDigit;

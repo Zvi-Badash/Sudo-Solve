@@ -1,0 +1,504 @@
+@startuml
+  namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.Globals {
+        {static} + BOXES : ArrayList<ArrayList<SudokuCoordinatesHolder>>
+        {static} + COLS : ArrayList<ArrayList<SudokuCoordinatesHolder>>
+        {static} + CURRENT_CELEBRATE_BOARD : SudokuDigit[][]
+        {static} + CURRENT_SESSION : Session
+        {static} + HAS_CONNECTION_TO_SERVER : boolean
+        {static} + NEIGHBORHOOD_TYPES : ArrayList<ArrayList<ArrayList<SudokuCoordinatesHolder>>>
+        {static} + OFFLINE_PUZZLES : HashMap<DifficultyLevel, ArrayList<String>>
+        {static} + ROWS : ArrayList<ArrayList<SudokuCoordinatesHolder>>
+        {static} - EASY_LIST : ArrayList<String>
+        {static} - HARD_LIST : ArrayList<String>
+        {static} - INSANE_LIST : ArrayList<String>
+        {static} - MEDIUM_LIST : ArrayList<String>
+    }
+  }
+
+
+  namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.Session {
+        + lastBoardState : String
+        + userName : String
+        + Session()
+    }
+  }
+
+
+  namespace com.zvibadash.sudosolve {
+    class com.zvibadash.sudosolve.SessionHandler {
+        {static} + delegateSession()
+        {static} + updateFromPreviousSession()
+        {static} + updateState()
+        {static} - _readSession()
+        {static} - _writeSession()
+    }
+  }
+
+    namespace com.zvibadash.sudosolve {
+      namespace sudokuboard {
+        class com.zvibadash.sudosolve.sudokuboard.SudokuBoardView {
+            + board : SudokuDigit[][]
+            + erroneousCells : HashSet<SudokuCoordinatesHolder>
+            + selectedColumn : int
+            + selectedRow : int
+            + shouldCelebrate : Boolean
+            + shouldDrawErrors : Boolean
+            - cellSize : int
+            - errorColor : int
+            - filledColor : int
+            - height : int
+            - highlightedColor : int
+            - highlightedPaint : Paint
+            - hintColor : int
+            - isEditable : boolean
+            - lessHighlightedColor : int
+            - letterPaint : Paint
+            - lineColor : int
+            - linePaint : Paint
+            - textSize : int
+            - width : int
+            + SudokuBoardView()
+            + celebrate()
+            + clearAllFilled()
+            + clearDigitInSelected()
+            + fillDigitInSelected()
+            + getBoardAsString()
+            + magicFillSelected()
+            + onTouchEvent()
+            + requestAndPrepareSolve()
+            + setBoardFromArray()
+            + setBoardFromString()
+            + setDigitHintInSelected()
+            + setDigitInSelected()
+            + unselect()
+            # onDraw()
+            # onSizeChanged()
+            - _drawGrid()
+            - _drawNumbers()
+            - _drawSelected()
+            - _getColorFromType()
+            - _highlightCell()
+            - _init()
+        }
+      }
+    }
+
+
+    namespace com.zvibadash.sudosolve {
+      namespace sudokuboard {
+        class com.zvibadash.sudosolve.sudokuboard.SudokuCoordinatesHolder {
+            ~ col : int
+            ~ row : int
+            + SudokuCoordinatesHolder()
+            + equals()
+            + hashCode()
+            + toString()
+        }
+      }
+    }
+
+
+    namespace com.zvibadash.sudosolve {
+      namespace sudokuboard {
+        class com.zvibadash.sudosolve.sudokuboard.SudokuDigit {
+            - digit : int
+            + SudokuDigit()
+            + getDigit()
+            + getType()
+            + setDigit()
+            + setType()
+        }
+      }
+    }
+
+
+    namespace com.zvibadash.sudosolve {
+      namespace sudokuboard {
+        enum SudokuDigitType {
+          EMPTY
+          ERROR
+          FILLED
+          HINTED
+        }
+      }
+    }
+
+
+    namespace com.zvibadash.sudosolve {
+      namespace sudokuboard {
+        abstract class com.zvibadash.sudosolve.sudokuboard.SudokuLogic {
+            {static} + getErroneousCells()
+        }
+      }
+    }
+
+
+    com.zvibadash.sudosolve.sudokuboard.SudokuBoardView -up-|> android.view.View
+    com.zvibadash.sudosolve.sudokuboard.SudokuDigit o-- com.zvibadash.sudosolve.sudokuboard.SudokuDigitType : type
+
+
+  namespace com.zvibadash.sudosolve {
+    namespace networking {
+      class com.zvibadash.sudosolve.networking.APIClient {
+          {static} ~ client : APIInterface
+          {static} + getClient()
+          - APIClient()
+      }
+    }
+  }
+
+
+  namespace com.zvibadash.sudosolve {
+    namespace networking {
+      interface com.zvibadash.sudosolve.networking.APIInterface {
+          {static} + API_KEY : String
+          {static} + BASE_URL : String
+          {abstract} + generate()
+          {abstract} + identify()
+          {abstract} + isConnected()
+          {abstract} + solve()
+      }
+    }
+  }
+
+
+  namespace com.zvibadash.sudosolve {
+    namespace networking {
+      enum DifficultyLevel {
+        EASY
+        HARD
+        INSANE
+        MEDIUM
+        level
+      }
+    }
+  }
+
+
+  namespace com.zvibadash.sudosolve {
+    namespace networking {
+      class com.zvibadash.sudosolve.networking.RequestGeneration {
+          + RequestGeneration()
+          + getDiffLevel()
+          + setDiffLevel()
+      }
+    }
+  }
+
+
+  namespace com.zvibadash.sudosolve {
+    namespace networking {
+      class com.zvibadash.sudosolve.networking.RequestIdentify {
+          - image : String
+          + RequestIdentify()
+          + getImage()
+          + setImage()
+      }
+    }
+  }
+
+
+  namespace com.zvibadash.sudosolve {
+    namespace networking {
+      class com.zvibadash.sudosolve.networking.RequestSolve {
+          - unsolved : String
+          + RequestSolve()
+          + getUnsolved()
+          + setUnsolved()
+      }
+    }
+  }
+
+
+  namespace com.zvibadash.sudosolve {
+    namespace networking {
+      class com.zvibadash.sudosolve.networking.ResponseCheckConnection {
+          - connected : Boolean
+          + getConnected()
+          + setConnected()
+      }
+    }
+  }
+
+
+  namespace com.zvibadash.sudosolve {
+    namespace networking {
+      class com.zvibadash.sudosolve.networking.ResponseGenerated {
+          - generated : String
+          + getGenerated()
+          + setGenerated()
+      }
+    }
+  }
+
+
+  namespace com.zvibadash.sudosolve {
+    namespace networking {
+      class com.zvibadash.sudosolve.networking.ResponseIdentify {
+          - board : String
+          + getBoard()
+          + setBoard()
+      }
+    }
+  }
+
+
+  namespace com.zvibadash.sudosolve {
+    namespace networking {
+      class com.zvibadash.sudosolve.networking.ResponseSolved {
+          - solved : String
+          + getSolved()
+          + setSolved()
+      }
+    }
+  }
+
+
+  com.zvibadash.sudosolve.networking.RequestGeneration o-- com.zvibadash.sudosolve.networking.DifficultyLevel : diffLevel
+
+      namespace com.zvibadash.sudosolve {
+        namespace database {
+          class com.zvibadash.sudosolve.database.SSDBContract {
+              - SSDBContract()
+          }
+        }
+      }
+
+
+      namespace com.zvibadash.sudosolve {
+        namespace database {
+          class com.zvibadash.sudosolve.database.SSDBContract.LastSessionForUser {
+              {static} + SESSION_CONTENTS : String
+              {static} + TABLE_NAME : String
+              {static} + USERNAME : String
+          }
+        }
+      }
+
+
+      namespace com.zvibadash.sudosolve {
+        namespace database {
+          class com.zvibadash.sudosolve.database.SSDBContract.Statistics {
+              {static} + STATISTICS_CONTENTS : String
+              {static} + TABLE_NAME : String
+              {static} + USERNAME : String
+          }
+        }
+      }
+
+
+      namespace com.zvibadash.sudosolve {
+        namespace database {
+          class com.zvibadash.sudosolve.database.SSDBContract.User {
+              {static} + TABLE_NAME : String
+              {static} + USERNAME : String
+          }
+        }
+      }
+
+
+      namespace com.zvibadash.sudosolve {
+        namespace database {
+          class com.zvibadash.sudosolve.database.SSDBHelper {
+              {static} + DATABASE_NAME : String
+              {static} + DATABASE_VERSION : int
+              {static} - SQL_CREATE_LAST_SESS : String
+              {static} - SQL_CREATE_STATISTICS : String
+              {static} - SQL_CREATE_USER : String
+              + SSDBHelper()
+              + onCreate()
+              + onDowngrade()
+              + onUpgrade()
+          }
+        }
+      }
+
+
+      com.zvibadash.sudosolve.database.SSDBContract +-down- com.zvibadash.sudosolve.database.SSDBContract.LastSessionForUser
+      com.zvibadash.sudosolve.database.SSDBContract +-down- com.zvibadash.sudosolve.database.SSDBContract.Statistics
+      com.zvibadash.sudosolve.database.SSDBContract +-down- com.zvibadash.sudosolve.database.SSDBContract.User
+      com.zvibadash.sudosolve.database.SSDBContract.LastSessionForUser .up.|> android.provider.BaseColumns
+      com.zvibadash.sudosolve.database.SSDBContract.Statistics .up.|> android.provider.BaseColumns
+      com.zvibadash.sudosolve.database.SSDBContract.User .up.|> android.provider.BaseColumns
+      com.zvibadash.sudosolve.database.SSDBHelper -up-|> android.database.sqlite.SQLiteOpenHelper
+
+      namespace com.zvibadash.sudosolve {
+        namespace activities {
+          class com.zvibadash.sudosolve.activities.CameraModeActivity {
+              {static} ~ DATE_PATTERN : String
+              {static} ~ IMG_SUFFIX : String
+              {static} ~ QUALITY : int
+              {static} ~ RAW_IMAGE_PREFIX : String
+              {static} ~ REQUEST_IMAGE_CAPTURE : int
+              ~ currentPhotoPath : String
+              # onActivityResult()
+              # onCreate()
+              - createImageFile()
+              - dispatchTakePictureIntent()
+              - getBase64FromImage()
+              - toGrayscale()
+          }
+        }
+      }
+
+
+      namespace com.zvibadash.sudosolve {
+        namespace activities {
+          class com.zvibadash.sudosolve.activities.CelebrateActivity {
+              # onCreate()
+              - shareResults()
+          }
+        }
+      }
+
+
+      namespace com.zvibadash.sudosolve {
+        namespace activities {
+          class com.zvibadash.sudosolve.activities.HelpActivity {
+              # onCreate()
+          }
+        }
+      }
+
+
+      namespace com.zvibadash.sudosolve {
+        namespace activities {
+          class com.zvibadash.sudosolve.activities.HomeActivity {
+              ~ btCameraMode : Button
+              ~ btRandomMode : Button
+              ~ difficultySpinner : Spinner
+              ~ iv : ImageView
+              # onCreate()
+              - generateAndStartActivity()
+              - initDifficultySpinner()
+              - offlineGenerateAndStartActivity()
+              - randomOnClick()
+          }
+        }
+      }
+
+
+      namespace com.zvibadash.sudosolve {
+        namespace activities {
+          class com.zvibadash.sudosolve.activities.LoginActivity {
+              ~ NO_ERROR : int
+              {static} ~ TAG : String
+              ~ USERNAME_ERROR : int
+              ~ db : SQLiteDatabase
+              # onCreate()
+              - isValidUsername()
+          }
+        }
+      }
+
+
+      namespace com.zvibadash.sudosolve {
+        namespace activities {
+          class com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity {
+              + onCreateOptionsMenu()
+              + onOptionsItemSelected()
+          }
+        }
+      }
+
+
+      namespace com.zvibadash.sudosolve {
+        namespace activities {
+          class com.zvibadash.sudosolve.activities.MainMenuTemplateActivity {
+              + onCreateOptionsMenu()
+              + onOptionsItemSelected()
+          }
+        }
+      }
+
+
+      namespace com.zvibadash.sudosolve {
+        namespace activities {
+          class com.zvibadash.sudosolve.activities.RegisterActivity {
+              ~ ALPHANUMERIC_ERROR : int
+              ~ ALREADY_EXISTS_ERROR : int
+              ~ LENGTH_ERROR : int
+              ~ NO_ERROR : int
+              {static} ~ TAG : String
+              ~ db : SQLiteDatabase
+              # onCreate()
+              - isValidUsername()
+          }
+        }
+      }
+
+
+      namespace com.zvibadash.sudosolve {
+        namespace activities {
+          class com.zvibadash.sudosolve.activities.SettingsActivity {
+              # onCreate()
+          }
+        }
+      }
+
+
+      namespace com.zvibadash.sudosolve {
+        namespace activities {
+          class com.zvibadash.sudosolve.activities.SolvingMenuTemplateActivity {
+              + onCreateOptionsMenu()
+              + onOptionsItemSelected()
+          }
+        }
+      }
+
+
+      namespace com.zvibadash.sudosolve {
+        namespace activities {
+          class com.zvibadash.sudosolve.activities.SudokuSolvingActivity {
+              + cachedSolve : StringBuilder[]
+              ~ board : String
+              ~ hasUsedSolved : boolean
+              ~ startTime : Instant
+              ~ timesMagicUsed : int
+              # onCreate()
+              - celebrate()
+              - checkSolved()
+          }
+        }
+      }
+
+
+      namespace com.zvibadash.sudosolve {
+        namespace activities {
+          class com.zvibadash.sudosolve.activities.TestingSessionsActivity {
+              ~ btSaveSessionContent : Button
+              ~ etSessionContent : EditText
+              ~ tvUserPrompt : TextView
+              # onCreate()
+          }
+        }
+      }
+
+
+      namespace com.zvibadash.sudosolve {
+        namespace activities {
+          class com.zvibadash.sudosolve.activities.WelcomeActivity {
+              # onCreate()
+          }
+        }
+      }
+
+
+      com.zvibadash.sudosolve.activities.CameraModeActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
+      com.zvibadash.sudosolve.activities.CelebrateActivity -up-|> androidx.appcompat.app.AppCompatActivity
+      com.zvibadash.sudosolve.activities.HelpActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
+      com.zvibadash.sudosolve.activities.HomeActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
+      com.zvibadash.sudosolve.activities.LoginActivity -up-|> com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity
+      com.zvibadash.sudosolve.activities.LoginActivity o-- com.zvibadash.sudosolve.database.SSDBHelper : dbHelper
+      com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity -up-|> androidx.appcompat.app.AppCompatActivity
+      com.zvibadash.sudosolve.activities.MainMenuTemplateActivity -up-|> androidx.appcompat.app.AppCompatActivity
+      com.zvibadash.sudosolve.activities.RegisterActivity -up-|> com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity
+      com.zvibadash.sudosolve.activities.RegisterActivity o-- com.zvibadash.sudosolve.database.SSDBHelper : dbHelper
+      com.zvibadash.sudosolve.activities.SettingsActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
+      com.zvibadash.sudosolve.activities.SolvingMenuTemplateActivity -up-|> androidx.appcompat.app.AppCompatActivity
+      com.zvibadash.sudosolve.activities.SudokuSolvingActivity -up-|> androidx.appcompat.app.AppCompatActivity
+      com.zvibadash.sudosolve.activities.TestingSessionsActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
+      com.zvibadash.sudosolve.activities.WelcomeActivity -up-|> androidx.appcompat.app.AppCompatActivity
+@enduml

@@ -86,9 +86,9 @@
     <Button
         android:id="@+id/btRegister_login_activity"
         style="@style/BasicButtonStyle"
-        android:layout_width="111dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="122dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="8dp"
         android:text="Register"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView3"

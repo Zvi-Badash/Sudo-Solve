@@ -36,6 +36,14 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
 
   namespace com.zvibadash.sudosolve {
     namespace activities {
+      class com.zvibadash.sudosolve.activities.CelebrateActivity {
+      }
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
       class com.zvibadash.sudosolve.activities.HelpActivity {
       }
     }
@@ -92,7 +100,7 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
 
   namespace com.zvibadash.sudosolve {
     namespace activities {
-      class com.zvibadash.sudosolve.activities.TestingSessionsActivity {
+      class com.zvibadash.sudosolve.activities.SolvingMenuTemplateActivity {
       }
     }
   }
@@ -100,7 +108,15 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
 
   namespace com.zvibadash.sudosolve {
     namespace activities {
-      class com.zvibadash.sudosolve.activities.TestingSudokuBoardViewActivity {
+      class com.zvibadash.sudosolve.activities.SudokuSolvingActivity {
+      }
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.TestingSessionsActivity {
       }
     }
   }
@@ -164,6 +180,14 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
 
   namespace com.zvibadash.sudosolve {
     namespace networking {
+      class com.zvibadash.sudosolve.networking.RequestIdentify {
+      }
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    namespace networking {
       class com.zvibadash.sudosolve.networking.RequestSolve {
       }
     }
@@ -188,6 +212,14 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
 
   namespace com.zvibadash.sudosolve {
     namespace networking {
+      class com.zvibadash.sudosolve.networking.ResponseIdentify {
+      }
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    namespace networking {
       class com.zvibadash.sudosolve.networking.ResponseSolved {
       }
     }
@@ -196,7 +228,7 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
 
   namespace com.zvibadash.sudosolve {
     namespace sudokuboard {
-      class com.zvibadash.sudosolve.sudokuboard.SudokuBoardEditor {
+      class com.zvibadash.sudosolve.sudokuboard.SudokuBoardView {
       }
     }
   }
@@ -204,7 +236,7 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
 
   namespace com.zvibadash.sudosolve {
     namespace sudokuboard {
-      class com.zvibadash.sudosolve.sudokuboard.SudokuBoardView {
+      class com.zvibadash.sudosolve.sudokuboard.SudokuCoordinatesHolder {
       }
     }
   }
@@ -226,7 +258,16 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   }
   
 
+  namespace com.zvibadash.sudosolve {
+    namespace sudokuboard {
+      abstract class com.zvibadash.sudosolve.sudokuboard.SudokuLogic {
+      }
+    }
+  }
+  
+
   com.zvibadash.sudosolve.activities.CameraModeActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
+  com.zvibadash.sudosolve.activities.CelebrateActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.zvibadash.sudosolve.activities.HelpActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
   com.zvibadash.sudosolve.activities.HomeActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
   com.zvibadash.sudosolve.activities.LoginActivity -up-|> com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity
@@ -236,12 +277,12 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   com.zvibadash.sudosolve.activities.RegisterActivity -up-|> com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity
   com.zvibadash.sudosolve.activities.RegisterActivity o-- com.zvibadash.sudosolve.database.SSDBHelper : dbHelper
   com.zvibadash.sudosolve.activities.SettingsActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
+  com.zvibadash.sudosolve.activities.SolvingMenuTemplateActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.zvibadash.sudosolve.activities.SudokuSolvingActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.zvibadash.sudosolve.activities.TestingSessionsActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
-  com.zvibadash.sudosolve.activities.TestingSudokuBoardViewActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.zvibadash.sudosolve.activities.WelcomeActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.zvibadash.sudosolve.database.SSDBHelper -up-|> android.database.sqlite.SQLiteOpenHelper
   com.zvibadash.sudosolve.networking.RequestGeneration o-- com.zvibadash.sudosolve.networking.DifficultyLevel : diffLevel
-  com.zvibadash.sudosolve.sudokuboard.SudokuBoardEditor o-- com.zvibadash.sudosolve.sudokuboard.SudokuBoardView : sbv
   com.zvibadash.sudosolve.sudokuboard.SudokuBoardView -up-|> android.view.View
   com.zvibadash.sudosolve.sudokuboard.SudokuDigit o-- com.zvibadash.sudosolve.sudokuboard.SudokuDigitType : type
 

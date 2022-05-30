@@ -36,7 +36,7 @@ import android.widget.Toast;
 import com.zvibadash.sudosolve.R;
 import com.zvibadash.sudosolve.database.SSDBContract.User;
 import com.zvibadash.sudosolve.database.SSDBHelper;
-import com.zvibadash.sudosolve.SessionHandler;
+import com.zvibadash.sudosolve.database.SessionHandler;
 
 import java.util.regex.Pattern;
 
@@ -59,7 +59,7 @@ public class LoginActivity extends LoginMenuTemplateActivity {
         Button btLogin = findViewById(R.id.btLogin_login_activity);
         btLogin.setOnClickListener(view -> {
             EditText etUsername = findViewById(R.id.etUsername_login_activity);
-            String username = etUsername.getText().toString();
+            String username = etUsername.getText().toString().trim().replaceAll("\\s","_");
             Log.i(TAG, "given username is " + username);
 
             switch (isValidUsername(username)) {
@@ -78,6 +78,12 @@ public class LoginActivity extends LoginMenuTemplateActivity {
         btRegister.setOnClickListener(view -> startActivity(new Intent(this, RegisterActivity.class)));
     }
 
+    /**
+     * This method validates the given username given by the user.
+     *
+     * @param givenUsername the given username.
+     * @return is it valid.
+     * */
     private int isValidUsername(String givenUsername) {
         // If the username is of illegal length.
         if (!(givenUsername.length() < 16 && givenUsername.length() > 2))

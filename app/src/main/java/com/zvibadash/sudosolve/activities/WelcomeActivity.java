@@ -49,7 +49,7 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        new CountDownTimer(1_000, 1_000) {
+        new CountDownTimer(3_000, 500) {
             @Override
             public void onTick(long l) {}
 
