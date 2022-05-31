@@ -10,7 +10,7 @@ import retrofit2.http.Query;
 
 public interface APIInterface {
     String API_KEY = "QPETl3iMdkIpejgC5ElMDfzuZez66fPzDnMoZ7tAGKxFdwXgcsKNqSidrNa0r4BdpoXJtHYL8piCQAqHgXBElpqgvtO7pWXzEsTE";
-    String BASE_URL = "http://10.76.166.194:5000/";
+    String BASE_URL = "http://sudosolveapi.eastus.cloudapp.azure.com";
 
     @GET("/check_connection")
     @Headers({

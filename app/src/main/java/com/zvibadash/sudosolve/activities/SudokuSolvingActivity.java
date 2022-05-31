@@ -33,6 +33,8 @@ package com.zvibadash.sudosolve.activities;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Parcelable;
@@ -52,12 +54,17 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.HashSet;
 
+import nl.dionsegijn.konfetti.KonfettiView;
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
+
 public class SudokuSolvingActivity extends AppCompatActivity {
     final public StringBuilder[] cachedSolve = {null};
     String board;
     Instant startTime = Instant.now();
     boolean hasUsedSolved = false;
     int timesMagicUsed = 0;
+    KonfettiView konfettiView;
 
     private void celebrate(SudokuBoardView sbv) {
         Toast.makeText(SudokuSolvingActivity.this, "Hurray!", Toast.LENGTH_SHORT).show();
@@ -69,7 +76,24 @@ public class SudokuSolvingActivity extends AppCompatActivity {
                 .replaceAll("s", " Seconds")
                 .replaceAll("m", " Minutes");
 
-        new CountDownTimer(3000, 100) {
+        // Play a celebrating sound
+        MediaPlayer.create(this, R.raw.fireworks).start();
+
+        // Display the confetti !
+        konfettiView = findViewById(R.id.viewKonfetti);
+        konfettiView.build()
+                .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                .setDirection(0.0, 359.0)
+                .setSpeed(2f, 8f)
+                .setFadeOutEnabled(true)
+                .setTimeToLive(2000L)
+                .addShapes(Shape.Square.INSTANCE, Shape.Circle.INSTANCE)
+                .addSizes(new Size(12, 5f))
+                .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
+                .streamFor(300, 15_000L);
+
+        // Raise the dialog activity
+        new CountDownTimer(5000, 100) {
             @Override
             public void onTick(long l) {}
 
