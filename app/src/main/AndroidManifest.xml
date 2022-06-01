@@ -20,12 +20,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SudoSolve">
+
         <activity
             android:name=".activities.CelebrateActivity"
             android:excludeFromRecents="true"
             android:theme="@style/AppDialogTheme"
             android:exported="false" />
-
         <activity
             android:name=".activities.SolvingMenuTemplateActivity"
             android:exported="false" />

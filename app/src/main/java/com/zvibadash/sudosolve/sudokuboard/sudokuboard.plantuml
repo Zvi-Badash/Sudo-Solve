@@ -1,7 +1,4 @@
 @startuml
-
-title __SUDOKUBOARD's Class Diagram__\n
-
   namespace com.zvibadash.sudosolve {
     namespace sudokuboard {
       class com.zvibadash.sudosolve.sudokuboard.SudokuBoardView {

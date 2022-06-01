@@ -1,7 +1,4 @@
 @startuml
-
-title __NETWORKING's Class Diagram__\n
-
   namespace com.zvibadash.sudosolve {
     namespace networking {
       class com.zvibadash.sudosolve.networking.APIClient {

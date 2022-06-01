@@ -32,10 +32,6 @@ import android.util.Log;
 
 import com.zvibadash.sudosolve.Globals;
 
-
-// TODO: PRIORITY: MINOR.
-//       DESC: There could be a risk for SQL injection in all of the following methods,
-//             need to do research on the provided SQLiteDatabase methods.
 public class SessionHandler {
     public static void delegateSession(Context context, String user) {
         Globals.CURRENT_SESSION = new Session(user, "");

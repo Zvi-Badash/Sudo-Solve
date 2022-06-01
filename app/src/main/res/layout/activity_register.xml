@@ -103,7 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:paddingHorizontal="3dp"
-        android:text="Please register in to your sudo solve account"
+        android:text="Please register your sudo solve account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

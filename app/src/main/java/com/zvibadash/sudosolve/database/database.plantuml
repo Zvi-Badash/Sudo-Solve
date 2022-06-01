@@ -1,7 +1,4 @@
 @startuml
-
-title __DATABASE's Class Diagram__\n
-
   namespace com.zvibadash.sudosolve {
     namespace database {
       class com.zvibadash.sudosolve.database.SSDBContract {
