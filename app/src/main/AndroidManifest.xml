@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.zvibadash.sudosolve">
 
     <uses-feature
@@ -11,6 +12,7 @@
         android:maxSdkVersion="18" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -20,12 +22,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SudoSolve">
+        <activity
+            android:name=".activities.InternetChangeListenerActivity"
+            android:exported="false" />
+
+        <receiver android:name=".networking.NetworkChangeReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"
+                    tools:ignore="BatteryLife" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".activities.CelebrateActivity"
             android:excludeFromRecents="true"
-            android:theme="@style/AppDialogTheme"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppDialogTheme" />
         <activity
             android:name=".activities.SolvingMenuTemplateActivity"
             android:exported="false" />
@@ -39,7 +52,7 @@
             android:name=".activities.LoginMenuTemplateActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.CameraModeActivity"
+            android:name=".activities.CaptureModeActivity"
             android:exported="false" />
         <activity
             android:name=".activities.SettingsActivity"

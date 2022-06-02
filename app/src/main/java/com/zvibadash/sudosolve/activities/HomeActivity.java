@@ -26,6 +26,7 @@ package com.zvibadash.sudosolve.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -56,7 +57,7 @@ import retrofit2.Response;
 public class HomeActivity extends MainMenuTemplateActivity {
 
     Spinner difficultySpinner;
-    Button btCameraMode, btRandomMode;
+    Button btCaptureMode, btRandomMode;
     ImageView iv;
 
     @Override
@@ -66,7 +67,7 @@ public class HomeActivity extends MainMenuTemplateActivity {
 
         iv = findViewById(R.id.ivHomeGif);
         difficultySpinner = findViewById(R.id.spDifficulty);
-        btCameraMode = findViewById(R.id.btCameraMode);
+        btCaptureMode = findViewById(R.id.btCaptureMode);
         btRandomMode = findViewById(R.id.btRandomMode);
         initDifficultySpinner();
 
@@ -75,11 +76,16 @@ public class HomeActivity extends MainMenuTemplateActivity {
                 .load(R.drawable.home_sudoku)
                 .into(iv);
 
-        btCameraMode.setOnClickListener(view -> {
-            startActivity(new Intent(this, CameraModeActivity.class));
+        btCaptureMode.setOnClickListener(view -> {
+            startActivity(new Intent(this, CaptureModeActivity.class));
         });
 
         btRandomMode.setOnClickListener(this::randomOnClick);
+
+        if (!Globals.HAS_CONNECTION_TO_SERVER) {
+            btCaptureMode.setEnabled(false);
+            btCaptureMode.setBackgroundColor(Color.LTGRAY);
+        }
     }
 
     private void initDifficultySpinner() {

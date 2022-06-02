@@ -33,16 +33,14 @@ package com.zvibadash.sudosolve.activities;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Parcelable;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.zvibadash.sudosolve.Globals;
 import com.zvibadash.sudosolve.R;
@@ -58,7 +56,7 @@ import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
 import nl.dionsegijn.konfetti.models.Size;
 
-public class SudokuSolvingActivity extends AppCompatActivity {
+public class SudokuSolvingActivity extends InternetChangeListenerActivity {
     final public StringBuilder[] cachedSolve = {null};
     String board;
     Instant startTime = Instant.now();
@@ -218,7 +216,8 @@ public class SudokuSolvingActivity extends AppCompatActivity {
 
             new CountDownTimer(1500, 100) {
                 @Override
-                public void onTick(long l) {}
+                public void onTick(long l) {
+                }
 
                 @Override
                 public void onFinish() {
@@ -229,15 +228,49 @@ public class SudokuSolvingActivity extends AppCompatActivity {
             }.start();
         });
 
+        if (!Globals.HAS_CONNECTION_TO_SERVER) {
+            btnMagic.setEnabled(false);
+            btnMagic.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
+
+            btnSolve.setEnabled(false);
+            btnSolve.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
+        }
+
         // Finally, set the board state to what was given from the referring activity
         new CountDownTimer(50, 10) {
             @Override
-            public void onTick(long l) {}
+            public void onTick(long l) {
+            }
 
             @Override
             public void onFinish() {
+                if (board.equals("000000000000000000000000000000000000000000000000000000000000000000000000000000000")) {
+                    // Raise a dialog box
+                    AlertDialog adImproperCameraIdentification = new AlertDialog.Builder(SudokuSolvingActivity.this).create();
+                    adImproperCameraIdentification.setTitle("Sudoku Identification Error");
+                    adImproperCameraIdentification.setMessage("Unfortunately, the server didn't succeed identifying the Sudoku you took a picture of.\nPlease try to capture it again, but make sure the image is clear and everything's in frame.");
+                    adImproperCameraIdentification.setButton(AlertDialog.BUTTON_POSITIVE, "Try Again",
+                            (dialog, which) -> {
+                                startActivity(new Intent(SudokuSolvingActivity.this, HomeActivity.class));
+                                dialog.dismiss();
+                            });
+                    adImproperCameraIdentification.show();
+                }
+
                 sbv.setBoardFromString(board);
                 sbv.requestAndPrepareSolve(SudokuSolvingActivity.this, cachedSolve);
+                if (cachedSolve == null) {
+                    // Raise a dialog box
+                    AlertDialog adImproperCameraIdentification = new AlertDialog.Builder(SudokuSolvingActivity.this).create();
+                    adImproperCameraIdentification.setTitle("Sudoku Identification Error");
+                    adImproperCameraIdentification.setMessage("Unfortunately, the server didn't succeed identifying the Sudoku you took a picture of.\nPlease try to capture it again, but make sure the image is clear and everything's in frame.");
+                    adImproperCameraIdentification.setButton(AlertDialog.BUTTON_POSITIVE, "Try Again",
+                            (dialog, which) -> {
+                                startActivity(new Intent(SudokuSolvingActivity.this, HomeActivity.class));
+                                dialog.dismiss();
+                            });
+                    adImproperCameraIdentification.show();
+                }
             }
         }.start();
     }

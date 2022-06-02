@@ -184,6 +184,7 @@
                     android:id="@+id/solvingBtSolve"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/Cornflower_Blue"
                     android:padding="15dp"
                     app:srcCompat="@drawable/ic_check_action" />
 
@@ -198,6 +199,7 @@
                     android:id="@+id/solvingBtErrors"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/Cornflower_Blue"
                     android:padding="15dp"
                     app:srcCompat="@drawable/ic_baseline_error_24" />
 
@@ -218,6 +220,7 @@
                     android:id="@+id/solvingBtMagic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/Cornflower_Blue"
                     android:padding="15dp"
                     app:srcCompat="@drawable/ic_wand" />
             </TableRow>
@@ -231,6 +234,7 @@
                     android:id="@+id/solvingBtErase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/Cornflower_Blue"
                     android:padding="15dp"
                     app:srcCompat="@android:drawable/ic_menu_delete" />
 
@@ -245,6 +249,7 @@
                     android:id="@+id/solvingBtRefresh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/Cornflower_Blue"
                     android:padding="15dp"
                     app:srcCompat="@drawable/ic_baseline_refresh_24" />
 

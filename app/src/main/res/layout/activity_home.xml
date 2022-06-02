@@ -43,13 +43,13 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/btCameraMode"
+        android:id="@+id/btCaptureMode"
         style="@style/BasicButtonStyle"
         android:layout_width="225dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:drawableLeft="@drawable/ic_camera_bticon"
-        android:text="Image mode"
+        android:text="Capture mode"
         app:layout_constraintBottom_toTopOf="@+id/btRandomMode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:text="Choose your input type:"
         android:textSize="10pt"
-        app:layout_constraintBottom_toTopOf="@+id/btCameraMode"
+        app:layout_constraintBottom_toTopOf="@+id/btCaptureMode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.082"
         app:layout_constraintStart_toStartOf="parent"

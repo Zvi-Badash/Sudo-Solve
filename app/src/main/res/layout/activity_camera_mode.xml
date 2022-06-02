@@ -28,7 +28,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.CameraModeActivity">
+    tools:context=".activities.CaptureModeActivity">
 
     <ImageView
         android:id="@+id/ivTest"

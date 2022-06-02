@@ -42,6 +42,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import com.zvibadash.sudosolve.Globals;
@@ -62,7 +63,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CameraModeActivity extends MainMenuTemplateActivity {
+public class CaptureModeActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     static final String IMG_SUFFIX         = ".jpg";
@@ -105,15 +106,27 @@ public class CameraModeActivity extends MainMenuTemplateActivity {
                         ResponseIdentify responseFromAPI = response.body();
                         assert responseFromAPI != null;
 
-                        startActivity(new Intent(CameraModeActivity.this, SudokuSolvingActivity.class)
-                                .putExtra("board", responseFromAPI.getBoard()));
-                    } else
+                        startActivity(new Intent(CaptureModeActivity.this, SudokuSolvingActivity.class)
+                                .putExtra("board", responseFromAPI.getBoard())
+                                .putExtra("fromCamera", true)
+                        );
+                    } else {
+                        startActivity(new Intent(CaptureModeActivity.this, SudokuSolvingActivity.class)
+                                .putExtra("board", "000000000000000000000000000000000000000000000000000000000000000000000000000000000")
+                                .putExtra("fromCamera", true)
+                        );
                         Log.e("CONNECTION", "ERROR CONNECTING.");
+                    }
+
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<ResponseIdentify> call, @NonNull Throwable t) {
                     progressDialog.dismiss();
+                    startActivity(new Intent(CaptureModeActivity.this, SudokuSolvingActivity.class)
+                            .putExtra("board", "000000000000000000000000000000000000000000000000000000000000000000000000000000000")
+                            .putExtra("fromCamera", true)
+                    );
                     Log.e("CONNECTION", t.getMessage());
                 }
             });
