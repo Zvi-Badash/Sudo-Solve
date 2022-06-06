@@ -62,7 +62,6 @@ public class MainMenuTemplateActivity extends AppCompatActivity {
             startActivity(new Intent(this, HomeActivity.class)); return true;
         }
         else if (itemID == R.id.opLogout) {
-            // TODO: Handle session save in the DB, only then exit.
             startActivity(new Intent(this, LoginActivity.class)); return true;
         }
         else if (itemID == R.id.opSettings) {

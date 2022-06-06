@@ -27,8 +27,6 @@
  * and this activity should be the ONLY place where you can SOLVE sudokus.
  */
 
-// TODO: (!!!) modularize this awful code, create getSolved or something to relieve the monstrous code dump in the magic button.
-
 package com.zvibadash.sudosolve.activities;
 
 import android.app.AlertDialog;

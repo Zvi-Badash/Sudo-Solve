@@ -43,7 +43,6 @@ public class LoginMenuTemplateActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemID = item.getItemId();
         if (itemID == R.id.opExit) {
-            // TODO: FINALIZE ALL RESOURCES HERE ALSO.
             finishAffinity();
         }
         return super.onOptionsItemSelected(item);

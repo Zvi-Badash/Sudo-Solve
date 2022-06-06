@@ -67,7 +67,6 @@ public class LoginActivity extends LoginMenuTemplateActivity {
                     Toast.makeText(getApplicationContext(), "Hmm, it seems that this username does not appear in the system, try registering it first.", Toast.LENGTH_SHORT).show();
                     break;
                 case NO_ERROR:
-                    // TODO: make sure the login data moves to the home activity
                     SessionHandler.delegateSession(getApplicationContext(), username);
                     startActivity(new Intent(this, HomeActivity.class));
                     break;

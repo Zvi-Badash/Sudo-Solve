@@ -37,6 +37,8 @@ import android.widget.Toast;
 import com.zvibadash.sudosolve.Globals;
 import com.zvibadash.sudosolve.R;
 import com.zvibadash.sudosolve.sudokuboard.SudokuBoardView;
+import com.zvibadash.sudosolve.sudokuboard.SudokuDigit;
+import com.zvibadash.sudosolve.sudokuboard.SudokuDigitType;
 
 import java.time.Duration;
 
@@ -88,9 +90,27 @@ public class CelebrateActivity extends AppCompatActivity {
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("text/plain");
 
-        String message = "I have solved a Sudoku in SudoSolve!\n" +
-                "It took " + timeDuration + " and I used " + timesMagicUsed + " \"Magic hints\"!";
+        String message = String.format(
+                "Hi!\nI wanted to let you know that the user %s in SudoSolve had solved this Sudoku\n\n%s\n\nIn %s and used %s \"Magic Hints\"!.\nHurray!",
+                Globals.CURRENT_SESSION.userName,
+                boardToMessage(Globals.CURRENT_CELEBRATE_BOARD),
+                timeDuration,
+                timesMagicUsed
+        );
+
         share.putExtra(Intent.EXTRA_TEXT, message);
         startActivity(share);
+    }
+
+    private String boardToMessage(SudokuDigit[][] board) {
+        StringBuilder sb = new StringBuilder();
+        for (SudokuDigit[] row : board) {
+            for (SudokuDigit dig : row)
+                sb.append(
+                        dig.getType() == SudokuDigitType.HINTED ? dig.getDigit() : ". "
+                ).append(" ");
+            sb.append('\n');
+        }
+        return sb.toString();
     }
 }

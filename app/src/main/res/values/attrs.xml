@@ -24,12 +24,12 @@
 
 <resources>
     <declare-styleable name="SudokuBoardView">
-        <attr name="errorColor" format="color"/>  <!-- TODO: Decide if this is necessary -->
-        <attr name="hintColor" format="color"/>   <!-- TODO: Decide if this is necessary -->
-        <attr name="filledColor" format="color"/> <!-- TODO: Decide if this is necessary -->
-        <attr name="lineColor" format="color"/> <!-- TODO: Decide if this is necessary -->
-        <attr name="highlightedColor" format="color"/> <!-- TODO: Decide if this is necessary -->
-        <attr name="isEditable" format="boolean"/> <!-- TODO: Decide if this is necessary -->
+        <attr name="errorColor" format="color"/>
+        <attr name="hintColor" format="color"/>
+        <attr name="filledColor" format="color"/>
+        <attr name="lineColor" format="color"/>
+        <attr name="highlightedColor" format="color"/>
+        <attr name="isEditable" format="boolean"/>
         <attr name="cellTextSize" format="integer"/>
     </declare-styleable>
 </resources>
