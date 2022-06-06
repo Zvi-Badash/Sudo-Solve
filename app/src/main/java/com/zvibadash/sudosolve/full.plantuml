@@ -179,6 +179,16 @@
 
   namespace com.zvibadash.sudosolve {
     namespace networking {
+      class com.zvibadash.sudosolve.networking.NetworkChangeReceiver {
+          + onReceive()
+          ~ checkConnection()
+      }
+    }
+  }
+
+
+  namespace com.zvibadash.sudosolve {
+    namespace networking {
       class com.zvibadash.sudosolve.networking.RequestGeneration {
           + RequestGeneration()
           + getDiffLevel()
@@ -256,6 +266,11 @@
   }
 
 
+  com.zvibadash.sudosolve.networking.NetworkChangeReceiver -up-|> android.content.BroadcastReceiver
+  com.zvibadash.sudosolve.networking.RequestGeneration o-- com.zvibadash.sudosolve.networking.DifficultyLevel : diffLevel
+
+
+
   com.zvibadash.sudosolve.networking.RequestGeneration o-- com.zvibadash.sudosolve.networking.DifficultyLevel : diffLevel
 
       namespace com.zvibadash.sudosolve {
@@ -324,181 +339,194 @@
       com.zvibadash.sudosolve.database.SSDBContract.User .up.|> android.provider.BaseColumns
       com.zvibadash.sudosolve.database.SSDBHelper -up-|> android.database.sqlite.SQLiteOpenHelper
 
-      namespace com.zvibadash.sudosolve {
-        namespace activities {
-          class com.zvibadash.sudosolve.activities.CameraModeActivity {
-              {static} ~ DATE_PATTERN : String
-              {static} ~ IMG_SUFFIX : String
-              {static} ~ QUALITY : int
-              {static} ~ RAW_IMAGE_PREFIX : String
-              {static} ~ REQUEST_IMAGE_CAPTURE : int
-              ~ currentPhotoPath : String
-              # onActivityResult()
-              # onCreate()
-              - createImageFile()
-              - dispatchTakePictureIntent()
-              - getBase64FromImage()
-              - toGrayscale()
-          }
-        }
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.CaptureModeActivity {
+          {static} ~ DATE_PATTERN : String
+          {static} ~ IMG_SUFFIX : String
+          {static} ~ QUALITY : int
+          {static} ~ RAW_IMAGE_PREFIX : String
+          {static} ~ REQUEST_IMAGE_CAPTURE : int
+          ~ currentPhotoPath : String
+          # onActivityResult()
+          # onCreate()
+          - createImageFile()
+          - dispatchTakePictureIntent()
+          - getBase64FromImage()
+          - toGrayscale()
       }
+    }
+  }
 
 
-      namespace com.zvibadash.sudosolve {
-        namespace activities {
-          class com.zvibadash.sudosolve.activities.CelebrateActivity {
-              # onCreate()
-              - shareResults()
-          }
-        }
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.CelebrateActivity {
+          # onCreate()
+          - shareResults()
       }
+    }
+  }
 
 
-      namespace com.zvibadash.sudosolve {
-        namespace activities {
-          class com.zvibadash.sudosolve.activities.HelpActivity {
-              # onCreate()
-          }
-        }
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.HelpActivity {
+          # onCreate()
       }
+    }
+  }
 
 
-      namespace com.zvibadash.sudosolve {
-        namespace activities {
-          class com.zvibadash.sudosolve.activities.HomeActivity {
-              ~ btCameraMode : Button
-              ~ btRandomMode : Button
-              ~ difficultySpinner : Spinner
-              ~ iv : ImageView
-              # onCreate()
-              - generateAndStartActivity()
-              - initDifficultySpinner()
-              - offlineGenerateAndStartActivity()
-              - randomOnClick()
-          }
-        }
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.HomeActivity {
+          ~ btCaptureMode : Button
+          ~ btRandomMode : Button
+          ~ difficultySpinner : Spinner
+          ~ iv : ImageView
+          # onCreate()
+          - generateAndStartActivity()
+          - initDifficultySpinner()
+          - offlineGenerateAndStartActivity()
+          - randomOnClick()
       }
+    }
+  }
 
 
-      namespace com.zvibadash.sudosolve {
-        namespace activities {
-          class com.zvibadash.sudosolve.activities.LoginActivity {
-              ~ NO_ERROR : int
-              {static} ~ TAG : String
-              ~ USERNAME_ERROR : int
-              ~ db : SQLiteDatabase
-              # onCreate()
-              - isValidUsername()
-          }
-        }
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.InternetChangeListenerActivity {
+          # onCreate()
+          # onPause()
       }
+    }
+  }
 
 
-      namespace com.zvibadash.sudosolve {
-        namespace activities {
-          class com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity {
-              + onCreateOptionsMenu()
-              + onOptionsItemSelected()
-          }
-        }
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.LoginActivity {
+          ~ NO_ERROR : int
+          {static} ~ TAG : String
+          ~ USERNAME_ERROR : int
+          ~ db : SQLiteDatabase
+          # onCreate()
+          - isValidUsername()
       }
+    }
+  }
 
 
-      namespace com.zvibadash.sudosolve {
-        namespace activities {
-          class com.zvibadash.sudosolve.activities.MainMenuTemplateActivity {
-              + onCreateOptionsMenu()
-              + onOptionsItemSelected()
-          }
-        }
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity {
+          + onCreateOptionsMenu()
+          + onOptionsItemSelected()
       }
+    }
+  }
 
 
-      namespace com.zvibadash.sudosolve {
-        namespace activities {
-          class com.zvibadash.sudosolve.activities.RegisterActivity {
-              ~ ALPHANUMERIC_ERROR : int
-              ~ ALREADY_EXISTS_ERROR : int
-              ~ LENGTH_ERROR : int
-              ~ NO_ERROR : int
-              {static} ~ TAG : String
-              ~ db : SQLiteDatabase
-              # onCreate()
-              - isValidUsername()
-          }
-        }
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.MainMenuTemplateActivity {
+          + onCreateOptionsMenu()
+          + onOptionsItemSelected()
       }
+    }
+  }
 
 
-      namespace com.zvibadash.sudosolve {
-        namespace activities {
-          class com.zvibadash.sudosolve.activities.SettingsActivity {
-              # onCreate()
-          }
-        }
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.RegisterActivity {
+          ~ ALPHANUMERIC_ERROR : int
+          ~ ALREADY_EXISTS_ERROR : int
+          ~ LENGTH_ERROR : int
+          ~ NO_ERROR : int
+          {static} ~ TAG : String
+          ~ db : SQLiteDatabase
+          # onCreate()
+          - isValidUsername()
       }
+    }
+  }
 
 
-      namespace com.zvibadash.sudosolve {
-        namespace activities {
-          class com.zvibadash.sudosolve.activities.SolvingMenuTemplateActivity {
-              + onCreateOptionsMenu()
-              + onOptionsItemSelected()
-          }
-        }
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.SettingsActivity {
+          # onCreate()
       }
+    }
+  }
 
 
-      namespace com.zvibadash.sudosolve {
-        namespace activities {
-          class com.zvibadash.sudosolve.activities.SudokuSolvingActivity {
-              + cachedSolve : StringBuilder[]
-              ~ board : String
-              ~ hasUsedSolved : boolean
-              ~ startTime : Instant
-              ~ timesMagicUsed : int
-              # onCreate()
-              - celebrate()
-              - checkSolved()
-          }
-        }
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.SolvingMenuTemplateActivity {
+          + onCreateOptionsMenu()
+          + onOptionsItemSelected()
       }
+    }
+  }
 
 
-      namespace com.zvibadash.sudosolve {
-        namespace activities {
-          class com.zvibadash.sudosolve.activities.TestingSessionsActivity {
-              ~ btSaveSessionContent : Button
-              ~ etSessionContent : EditText
-              ~ tvUserPrompt : TextView
-              # onCreate()
-          }
-        }
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.SudokuSolvingActivity {
+          + cachedSolve : StringBuilder[]
+          ~ board : String
+          ~ hasUsedSolved : boolean
+          ~ konfettiView : KonfettiView
+          ~ startTime : Instant
+          ~ timesMagicUsed : int
+          # onCreate()
+          - celebrate()
+          - checkSolved()
       }
+    }
+  }
 
 
-      namespace com.zvibadash.sudosolve {
-        namespace activities {
-          class com.zvibadash.sudosolve.activities.WelcomeActivity {
-              # onCreate()
-          }
-        }
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.TestingSessionsActivity {
+          ~ btSaveSessionContent : Button
+          ~ etSessionContent : EditText
+          ~ tvUserPrompt : TextView
+          # onCreate()
       }
+    }
+  }
 
 
-      com.zvibadash.sudosolve.activities.CameraModeActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
-      com.zvibadash.sudosolve.activities.CelebrateActivity -up-|> androidx.appcompat.app.AppCompatActivity
-      com.zvibadash.sudosolve.activities.HelpActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
-      com.zvibadash.sudosolve.activities.HomeActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
-      com.zvibadash.sudosolve.activities.LoginActivity -up-|> com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity
-      com.zvibadash.sudosolve.activities.LoginActivity o-- com.zvibadash.sudosolve.database.SSDBHelper : dbHelper
-      com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity -up-|> androidx.appcompat.app.AppCompatActivity
-      com.zvibadash.sudosolve.activities.MainMenuTemplateActivity -up-|> androidx.appcompat.app.AppCompatActivity
-      com.zvibadash.sudosolve.activities.RegisterActivity -up-|> com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity
-      com.zvibadash.sudosolve.activities.RegisterActivity o-- com.zvibadash.sudosolve.database.SSDBHelper : dbHelper
-      com.zvibadash.sudosolve.activities.SettingsActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
-      com.zvibadash.sudosolve.activities.SolvingMenuTemplateActivity -up-|> androidx.appcompat.app.AppCompatActivity
-      com.zvibadash.sudosolve.activities.SudokuSolvingActivity -up-|> androidx.appcompat.app.AppCompatActivity
-      com.zvibadash.sudosolve.activities.TestingSessionsActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
-      com.zvibadash.sudosolve.activities.WelcomeActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.WelcomeActivity {
+          # onCreate()
+      }
+    }
+  }
+
+
+  com.zvibadash.sudosolve.activities.CaptureModeActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.zvibadash.sudosolve.activities.CelebrateActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.zvibadash.sudosolve.activities.HelpActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
+  com.zvibadash.sudosolve.activities.HomeActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
+  com.zvibadash.sudosolve.activities.InternetChangeListenerActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.zvibadash.sudosolve.activities.InternetChangeListenerActivity o-- com.zvibadash.sudosolve.networking.NetworkChangeReceiver : ncr
+  com.zvibadash.sudosolve.activities.LoginActivity -up-|> com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity
+  com.zvibadash.sudosolve.activities.LoginActivity o-- com.zvibadash.sudosolve.database.SSDBHelper : dbHelper
+  com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.zvibadash.sudosolve.activities.MainMenuTemplateActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.zvibadash.sudosolve.activities.RegisterActivity -up-|> com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity
+  com.zvibadash.sudosolve.activities.RegisterActivity o-- com.zvibadash.sudosolve.database.SSDBHelper : dbHelper
+  com.zvibadash.sudosolve.activities.SettingsActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
+  com.zvibadash.sudosolve.activities.SolvingMenuTemplateActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.zvibadash.sudosolve.activities.SudokuSolvingActivity -up-|> com.zvibadash.sudosolve.activities.InternetChangeListenerActivity
+  com.zvibadash.sudosolve.activities.TestingSessionsActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
+  com.zvibadash.sudosolve.activities.WelcomeActivity -up-|> androidx.appcompat.app.AppCompatActivity
 @enduml

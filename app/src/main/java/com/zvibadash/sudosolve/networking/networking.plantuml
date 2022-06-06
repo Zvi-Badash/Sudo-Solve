@@ -39,6 +39,16 @@
 
   namespace com.zvibadash.sudosolve {
     namespace networking {
+      class com.zvibadash.sudosolve.networking.NetworkChangeReceiver {
+          + onReceive()
+          ~ checkConnection()
+      }
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    namespace networking {
       class com.zvibadash.sudosolve.networking.RequestGeneration {
           + RequestGeneration()
           + getDiffLevel()
@@ -116,6 +126,6 @@
   }
   
 
+  com.zvibadash.sudosolve.networking.NetworkChangeReceiver -up-|> android.content.BroadcastReceiver
   com.zvibadash.sudosolve.networking.RequestGeneration o-- com.zvibadash.sudosolve.networking.DifficultyLevel : diffLevel
-
 @enduml

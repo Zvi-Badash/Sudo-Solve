@@ -1,7 +1,7 @@
 @startuml
   namespace com.zvibadash.sudosolve {
     namespace activities {
-      class com.zvibadash.sudosolve.activities.CameraModeActivity {
+      class com.zvibadash.sudosolve.activities.CaptureModeActivity {
           {static} ~ DATE_PATTERN : String
           {static} ~ IMG_SUFFIX : String
           {static} ~ QUALITY : int
@@ -41,7 +41,7 @@
   namespace com.zvibadash.sudosolve {
     namespace activities {
       class com.zvibadash.sudosolve.activities.HomeActivity {
-          ~ btCameraMode : Button
+          ~ btCaptureMode : Button
           ~ btRandomMode : Button
           ~ difficultySpinner : Spinner
           ~ iv : ImageView
@@ -50,6 +50,16 @@
           - initDifficultySpinner()
           - offlineGenerateAndStartActivity()
           - randomOnClick()
+      }
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.InternetChangeListenerActivity {
+          # onCreate()
+          # onPause()
       }
     }
   }
@@ -130,6 +140,7 @@
           + cachedSolve : StringBuilder[]
           ~ board : String
           ~ hasUsedSolved : boolean
+          ~ konfettiView : KonfettiView
           ~ startTime : Instant
           ~ timesMagicUsed : int
           # onCreate()
@@ -138,7 +149,7 @@
       }
     }
   }
-  
+
 
   namespace com.zvibadash.sudosolve {
     namespace activities {
@@ -150,7 +161,7 @@
       }
     }
   }
-  
+
 
   namespace com.zvibadash.sudosolve {
     namespace activities {
@@ -159,12 +170,14 @@
       }
     }
   }
-  
 
-  com.zvibadash.sudosolve.activities.CameraModeActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
+
+  com.zvibadash.sudosolve.activities.CaptureModeActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.zvibadash.sudosolve.activities.CelebrateActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.zvibadash.sudosolve.activities.HelpActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
   com.zvibadash.sudosolve.activities.HomeActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
+  com.zvibadash.sudosolve.activities.InternetChangeListenerActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.zvibadash.sudosolve.activities.InternetChangeListenerActivity o-- com.zvibadash.sudosolve.networking.NetworkChangeReceiver : ncr
   com.zvibadash.sudosolve.activities.LoginActivity -up-|> com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity
   com.zvibadash.sudosolve.activities.LoginActivity o-- com.zvibadash.sudosolve.database.SSDBHelper : dbHelper
   com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity -up-|> androidx.appcompat.app.AppCompatActivity
@@ -173,7 +186,7 @@
   com.zvibadash.sudosolve.activities.RegisterActivity o-- com.zvibadash.sudosolve.database.SSDBHelper : dbHelper
   com.zvibadash.sudosolve.activities.SettingsActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
   com.zvibadash.sudosolve.activities.SolvingMenuTemplateActivity -up-|> androidx.appcompat.app.AppCompatActivity
-  com.zvibadash.sudosolve.activities.SudokuSolvingActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.zvibadash.sudosolve.activities.SudokuSolvingActivity -up-|> com.zvibadash.sudosolve.activities.InternetChangeListenerActivity
   com.zvibadash.sudosolve.activities.TestingSessionsActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
   com.zvibadash.sudosolve.activities.WelcomeActivity -up-|> androidx.appcompat.app.AppCompatActivity
 @enduml

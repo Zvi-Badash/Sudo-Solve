@@ -15,20 +15,8 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   
 
   namespace com.zvibadash.sudosolve {
-    class com.zvibadash.sudosolve.Session {
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
-    class com.zvibadash.sudosolve.SessionHandler {
-    }
-  }
-  
-
-  namespace com.zvibadash.sudosolve {
     namespace activities {
-      class com.zvibadash.sudosolve.activities.CameraModeActivity {
+      class com.zvibadash.sudosolve.activities.CaptureModeActivity {
       }
     }
   }
@@ -53,6 +41,14 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   namespace com.zvibadash.sudosolve {
     namespace activities {
       class com.zvibadash.sudosolve.activities.HomeActivity {
+      }
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    namespace activities {
+      class com.zvibadash.sudosolve.activities.InternetChangeListenerActivity {
       }
     }
   }
@@ -147,6 +143,22 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   
 
   namespace com.zvibadash.sudosolve {
+    namespace database {
+      class com.zvibadash.sudosolve.database.Session {
+      }
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    namespace database {
+      class com.zvibadash.sudosolve.database.SessionHandler {
+      }
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
     namespace networking {
       class com.zvibadash.sudosolve.networking.APIClient {
       }
@@ -165,6 +177,14 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   namespace com.zvibadash.sudosolve {
     namespace networking {
       enum DifficultyLevel {
+      }
+    }
+  }
+  
+
+  namespace com.zvibadash.sudosolve {
+    namespace networking {
+      class com.zvibadash.sudosolve.networking.NetworkChangeReceiver {
       }
     }
   }
@@ -266,10 +286,12 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   }
   
 
-  com.zvibadash.sudosolve.activities.CameraModeActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
+  com.zvibadash.sudosolve.activities.CaptureModeActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.zvibadash.sudosolve.activities.CelebrateActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.zvibadash.sudosolve.activities.HelpActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
   com.zvibadash.sudosolve.activities.HomeActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
+  com.zvibadash.sudosolve.activities.InternetChangeListenerActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.zvibadash.sudosolve.activities.InternetChangeListenerActivity o-- com.zvibadash.sudosolve.networking.NetworkChangeReceiver : ncr
   com.zvibadash.sudosolve.activities.LoginActivity -up-|> com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity
   com.zvibadash.sudosolve.activities.LoginActivity o-- com.zvibadash.sudosolve.database.SSDBHelper : dbHelper
   com.zvibadash.sudosolve.activities.LoginMenuTemplateActivity -up-|> androidx.appcompat.app.AppCompatActivity
@@ -278,10 +300,11 @@ title __SUDO_SOLVE.APP's Class Diagram__\n
   com.zvibadash.sudosolve.activities.RegisterActivity o-- com.zvibadash.sudosolve.database.SSDBHelper : dbHelper
   com.zvibadash.sudosolve.activities.SettingsActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
   com.zvibadash.sudosolve.activities.SolvingMenuTemplateActivity -up-|> androidx.appcompat.app.AppCompatActivity
-  com.zvibadash.sudosolve.activities.SudokuSolvingActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.zvibadash.sudosolve.activities.SudokuSolvingActivity -up-|> com.zvibadash.sudosolve.activities.InternetChangeListenerActivity
   com.zvibadash.sudosolve.activities.TestingSessionsActivity -up-|> com.zvibadash.sudosolve.activities.MainMenuTemplateActivity
   com.zvibadash.sudosolve.activities.WelcomeActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.zvibadash.sudosolve.database.SSDBHelper -up-|> android.database.sqlite.SQLiteOpenHelper
+  com.zvibadash.sudosolve.networking.NetworkChangeReceiver -up-|> android.content.BroadcastReceiver
   com.zvibadash.sudosolve.networking.RequestGeneration o-- com.zvibadash.sudosolve.networking.DifficultyLevel : diffLevel
   com.zvibadash.sudosolve.sudokuboard.SudokuBoardView -up-|> android.view.View
   com.zvibadash.sudosolve.sudokuboard.SudokuDigit o-- com.zvibadash.sudosolve.sudokuboard.SudokuDigitType : type
