@@ -96,7 +96,6 @@ public class CaptureModeActivity extends AppCompatActivity {
             progressDialog.setMessage("Identifying...");
             progressDialog.show();
 
-            Log.d("mKNKJHJVGHCF", "HERE");
             APIInterface client = APIClient.getClient();
             client.identify(new RequestIdentify(encodedBoard)).enqueue(new Callback<ResponseIdentify>() {
                 @Override
@@ -117,7 +116,6 @@ public class CaptureModeActivity extends AppCompatActivity {
                         );
                         Log.e("CONNECTION", "ERROR CONNECTING.");
                     }
-
                 }
 
                 @Override
