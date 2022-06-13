@@ -30,6 +30,7 @@
 package com.zvibadash.sudosolve.activities;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -41,8 +42,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.zvibadash.sudosolve.Globals;
 import com.zvibadash.sudosolve.R;
+import com.zvibadash.sudosolve.networking.APIClient;
+import com.zvibadash.sudosolve.networking.APIInterface;
+import com.zvibadash.sudosolve.networking.RequestSolve;
+import com.zvibadash.sudosolve.networking.ResponseSolved;
 import com.zvibadash.sudosolve.sudokuboard.SudokuBoardView;
 import com.zvibadash.sudosolve.sudokuboard.SudokuDigit;
 import com.zvibadash.sudosolve.sudokuboard.SudokuLogic;
@@ -54,6 +61,9 @@ import java.util.HashSet;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
 import nl.dionsegijn.konfetti.models.Size;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SudokuSolvingActivity extends InternetChangeListenerActivity {
     final public StringBuilder[] cachedSolve = {null};
@@ -258,19 +268,6 @@ public class SudokuSolvingActivity extends InternetChangeListenerActivity {
 
                 sbv.setBoardFromString(board);
                 sbv.requestAndPrepareSolve(SudokuSolvingActivity.this, cachedSolve);
-                if (cachedSolve[0] == null) {
-                    Log.d("TAG-NETWORK-BOARD", board);
-                    // Raise a dialog box
-                    AlertDialog adImproperCameraIdentification = new AlertDialog.Builder(SudokuSolvingActivity.this).create();
-                    adImproperCameraIdentification.setTitle("Sudoku Identification Error");
-                    adImproperCameraIdentification.setMessage("Unfortunately, the server didn't succeed identifying the Sudoku you took a picture of.\nPlease try to capture it again, but make sure the image is clear and everything's in frame.");
-                    adImproperCameraIdentification.setButton(AlertDialog.BUTTON_POSITIVE, "Try Again",
-                            (dialog, which) -> {
-                                startActivity(new Intent(SudokuSolvingActivity.this, HomeActivity.class));
-                                dialog.dismiss();
-                            });
-                    adImproperCameraIdentification.show();
-                }
             }
         }.start();
     }

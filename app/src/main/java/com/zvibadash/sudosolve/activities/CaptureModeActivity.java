@@ -108,12 +108,12 @@ public class CaptureModeActivity extends AppCompatActivity {
 
                         startActivity(new Intent(CaptureModeActivity.this, SudokuSolvingActivity.class)
                                 .putExtra("board", responseFromAPI.getBoard())
-                                .putExtra("fromCamera", true)
+                                .putExtra("caller", "CaptureModeActivity")
                         );
                     } else {
                         startActivity(new Intent(CaptureModeActivity.this, SudokuSolvingActivity.class)
                                 .putExtra("board", "000000000000000000000000000000000000000000000000000000000000000000000000000000000")
-                                .putExtra("fromCamera", true)
+                                .putExtra("caller", "CaptureModeActivity")
                         );
                         Log.e("CONNECTION", "ERROR CONNECTING.");
                     }
@@ -125,7 +125,7 @@ public class CaptureModeActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     startActivity(new Intent(CaptureModeActivity.this, SudokuSolvingActivity.class)
                             .putExtra("board", "000000000000000000000000000000000000000000000000000000000000000000000000000000000")
-                            .putExtra("fromCamera", true)
+                            .putExtra("caller", "CaptureModeActivity")
                     );
                     Log.e("CONNECTION", t.getMessage());
                 }

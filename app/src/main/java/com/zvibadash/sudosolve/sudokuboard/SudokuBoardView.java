@@ -25,8 +25,10 @@
 package com.zvibadash.sudosolve.sudokuboard;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -43,6 +45,7 @@ import androidx.core.graphics.ColorUtils;
 
 import com.zvibadash.sudosolve.Globals;
 import com.zvibadash.sudosolve.R;
+import com.zvibadash.sudosolve.activities.HomeActivity;
 import com.zvibadash.sudosolve.networking.APIClient;
 import com.zvibadash.sudosolve.networking.APIInterface;
 import com.zvibadash.sudosolve.networking.RequestSolve;
@@ -386,8 +389,20 @@ public class SudokuBoardView extends View {
                             assert responseFromAPI != null;
 
                             cachedSolve[0] = new StringBuilder(responseFromAPI.getSolved());
-                        } else
-                            Log.e("CONNECTION", "ERROR CONNECTING.");
+                            Log.d("@sbvR&P", cachedSolve[0].toString());
+                        } else {
+                            // Raise a dialog box
+                            AlertDialog adImproperCameraIdentification = new AlertDialog.Builder(context).create();
+                            adImproperCameraIdentification.setCancelable(false);
+                            adImproperCameraIdentification.setTitle("Sudoku Identification Error");
+                            adImproperCameraIdentification.setMessage("Unfortunately, the server didn't succeed identifying the Sudoku you took a picture of.\nPlease try to capture it again, but make sure the image is clear and everything's in frame.");
+                            adImproperCameraIdentification.setButton(AlertDialog.BUTTON_POSITIVE, "Try Again",
+                                    (dialog, which) -> {
+                                        context.startActivity(new Intent(context, HomeActivity.class));
+                                        dialog.dismiss();
+                                    });
+                            adImproperCameraIdentification.show();
+                        }
                     }
 
                     @Override
