@@ -36,6 +36,7 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -257,7 +258,8 @@ public class SudokuSolvingActivity extends InternetChangeListenerActivity {
 
                 sbv.setBoardFromString(board);
                 sbv.requestAndPrepareSolve(SudokuSolvingActivity.this, cachedSolve);
-                if (cachedSolve == null) {
+                if (cachedSolve[0] == null) {
+                    Log.d("TAG-NETWORK-BOARD", board);
                     // Raise a dialog box
                     AlertDialog adImproperCameraIdentification = new AlertDialog.Builder(SudokuSolvingActivity.this).create();
                     adImproperCameraIdentification.setTitle("Sudoku Identification Error");
